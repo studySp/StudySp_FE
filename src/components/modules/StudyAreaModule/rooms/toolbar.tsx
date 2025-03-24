@@ -29,7 +29,6 @@ const Toolbar = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Search placeholder="Nhập mã phòng hoặc email người tạo phòng" />
       <Carousel
         opts={{
           align: "start",

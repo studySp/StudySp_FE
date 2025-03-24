@@ -35,7 +35,7 @@ function StudyRoomMainLayout({ children }: { children: React.ReactNode }) {
     return themes[randomIndex];
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const randomTheme = getRandomTheme();
     dispatch(
       actionSetCurrentMedia({
@@ -50,7 +50,7 @@ function StudyRoomMainLayout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.pause();
-      audioRef.current.load(); // Reload the audio element to update the source
+      audioRef.current.load();
       audioRef.current
         .play()
         .catch((err) => console.error("Failed to play audio:", err));
@@ -63,8 +63,8 @@ function StudyRoomMainLayout({ children }: { children: React.ReactNode }) {
         try {
           await audioRef.current.play();
           setAudioPlayed(true);
-          document.removeEventListener("click", handleUserInteraction); // Remove event listener once audio plays
-          document.removeEventListener("keydown", handleUserInteraction); // Remove event listener once audio plays
+          document.removeEventListener("click", handleUserInteraction);
+          document.removeEventListener("keydown", handleUserInteraction);
         } catch (err) {
           console.error("Failed to play audio:", err);
         }
@@ -85,7 +85,7 @@ function StudyRoomMainLayout({ children }: { children: React.ReactNode }) {
     const handleLoadedData = () => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000); // 1 second delay
+      }, 1000);
     };
 
     const videoElement = videoRef.current;
@@ -110,15 +110,14 @@ function StudyRoomMainLayout({ children }: { children: React.ReactNode }) {
   }, [currentMedia.video, currentMedia.audio]);
   return (
     <div className="h-screen w-screen">
-
-         {isLoading && (
+      {isLoading && (
         <div className="absolute inset-0 z-[1] flex items-center justify-center bg-black/60">
           <div className="loader animate-pulse text-2xl font-bold text-white">
             Loading...
           </div>
         </div>
       )}
-       {!audioPlayed && (
+      {!audioPlayed && (
         <div className="absolute inset-0 z-[1] flex items-center justify-center bg-black/60">
           <div className="loader animate-pulse text-2xl font-bold text-white">
             Click vào màn hình hoặc bấm phím bất kỳ để bật nhạc
@@ -126,7 +125,6 @@ function StudyRoomMainLayout({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      
       <div className="absolute h-full w-full bg-white">
         <video
           ref={videoRef}

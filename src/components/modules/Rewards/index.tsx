@@ -193,7 +193,7 @@ const vouchers: VoucherCardProps[] = [
 
 export default function Rewards() {
   return (
-    <div className="container flex flex-col gap-5 py-[40px]">
+    <div className="container flex flex-col gap-5 py-[120px]">
       <div>
         <h4 className="font-title text-3xl font-bold">
           Thành tích và phần thưởng của bạn
@@ -309,7 +309,7 @@ export const ProgressBar = ({
   label,
   progressSubLabel,
   showLabel = true,
-  color = "bg-orange-500",
+  color = "bg-blue-500",
 }: ProgressBarProps) => {
   return (
     <div>
@@ -366,7 +366,7 @@ export const TitleCard = ({
         <div>
           {isLock && (
             <Button className="w-full" disabled>
-              Đã khóa
+              Chưa đủ điểm để nhận
             </Button>
           )}
           {!isLock && <Button className="w-full">{btnContent}</Button>}

@@ -135,15 +135,15 @@ export default function GitHubContributionGraph({
   const getLevelColor = (level: number) => {
     switch (level) {
       case 0:
-        return "bg-gray-200";
+        return "bg-blue-200";
       case 1:
-        return "bg-orange-900";
+        return "bg-blue-900";
       case 2:
-        return "bg-orange-700";
+        return "bg-blue-700";
       case 3:
-        return "bg-orange-600";
+        return "bg-blue-600";
       case 4:
-        return "bg-orange-500";
+        return "bg-blue-500";
       default:
         return "bg-gray-800";
     }
@@ -163,7 +163,9 @@ export default function GitHubContributionGraph({
   const months = getMonths();
 
   return (
-    <div className={`flex justify-center w-fit rounded-lg bg-white p-4 text-gray-300 ${className}`}>
+    <div
+      className={`flex w-fit justify-center rounded-lg bg-white p-4 text-gray-300 ${className}`}
+    >
       <div className="flex justify-center">
         {/* Day labels */}
         <div className="mr-2 flex h-[120px] flex-col justify-around pt-6 text-xs text-gray-500">
@@ -172,7 +174,7 @@ export default function GitHubContributionGraph({
           <div>Fri</div>
         </div>
 
-        <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto overflow-ellipsis">
           {/* Month labels */}
           <div className="mb-1 flex pl-1 text-xs text-gray-500">
             {months.map((month, i) => (
@@ -207,8 +209,7 @@ export default function GitHubContributionGraph({
                         {day && (
                           <TooltipContent side="top" className="text-xs">
                             <p>
-                              {day.count} lần học tập{" "}
-                              {formatDate(day.date)}
+                              {day.count} lần học tập {formatDate(day.date)}
                             </p>
                           </TooltipContent>
                         )}
@@ -240,8 +241,6 @@ export default function GitHubContributionGraph({
             ></div>
             <span className="ml-1">More</span>
           </div>
-
-        
         </div>
       </div>
     </div>

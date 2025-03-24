@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 20 100% 70%;
+    --primary: 102, 133, 255;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -47,7 +47,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 102, 133, 255;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -83,7 +83,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #FF9966;
+  background: #0c5776;
   border-radius: 100vw;
   border: 3px solid #F5F3EA;
 }
@@ -99,11 +99,6 @@ html {
 @layer base {
   * {
     @apply border-border;
-
-    @media screen and (min-width : 1024px) {
-      cursor: none !important;
-
-    }
   }
 
   body {
@@ -137,16 +132,18 @@ html {
   }
 
   .tag {
-    @apply bg-[#65CCA0] px-1 rounded-md border-[1px]  border-black select-none ;
+    @apply bg-[#65CCA0] px-1 rounded-md border-[1px] border-black select-none;
     box-shadow: -3px 3px 0px 0px #000;
   }
 
   .animate-deylay-2 {
     animation-delay: .5s;
   }
+
   .animate-deylay-3 {
     animation-delay: 1.5s;
   }
+
   .animate-deylay-4 {
     animation-delay: 2.5s;
   }
@@ -174,7 +171,7 @@ process stress */
   --progress-indicator-size: 350px;
   --progress-size: 190px;
   --progress-inner-size: calc(var(--progress-size) - 20px);
-  border: 5px solid hsla(5, 100%, 70%, 1);
+  border: 5px solid rgb(102, 133, 255);
   position: relative;
   display: flex;
   justify-content: center;
@@ -268,9 +265,11 @@ process stress */
     background: hsla(5, 100%, 50%, 1);
     opacity: 1;
   }
+
   30% {
     opacity: 1;
   }
+
   100% {
     width: 150%;
     height: 150%;

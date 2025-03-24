@@ -10,7 +10,7 @@ function LeftSection() {
   return (
     <div className="flex h-[200px] w-[200px] flex-col gap-4 rounded-full">
       <Image
-        src={auth?.userInfo?.photoURL}
+        src={"/images/avatar.webp"}
         alt="avatar"
         width={150}
         height={10}

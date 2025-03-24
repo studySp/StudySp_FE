@@ -6,7 +6,6 @@ import ArrowUpDownIcon from "@public/icons/studyroom/arrow-up-down.svg";
 import BellIcon from "@public/icons/studyroom/bell.svg";
 import VolumnMuteIcon from "@public/icons/studyroom/volumn-mute.svg";
 import VolumnUpIcon from "@public/icons/studyroom/volumn-up.svg";
-import AvatarImage from "@public/images/avatartwo.jpg";
 import VideoCallIcon from "@public/icons/studyroom/video.svg";
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -14,68 +13,67 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux-toolkit";
 import { actionSetMute } from "@/store/slices/studyRoomController";
-import { useRouter } from "next-nprogress-bar";
 
 type TProps = {};
 
 const users = [
   {
-    name: "Nguyễn Minh Hoàng",
-    username: "@hoangnm.dev",
+    name: "Nguyễn Minh Phúc",
+    username: "@phucnm.dev",
     avatar:
       "https://i.pinimg.com/736x/85/69/7b/85697b7b1fa0bdecfcbf80aefbdb87b7.jpg",
   },
   {
-    name: "Phạm Thanh Tùng",
-    username: "@tungpt.code",
+    name: "Trần Gia Huy",
+    username: "@huytg.code",
     avatar:
       "https://i.pinimg.com/736x/e4/85/ca/e485caf194ab8e6057685d538920093e.jpg",
   },
   {
-    name: "Lê Quang Dũng",
-    username: "@dunglq.ai",
+    name: "Phạm Thanh Tùng",
+    username: "@tungpt.ai",
     avatar:
       "https://i.pinimg.com/736x/31/04/60/31046062275e8ee91e86870389aa4c81.jpg",
   },
   {
-    name: "Trần Kim Anh",
-    username: "@anhtk.marketing",
+    name: "Võ Ngọc Mai",
+    username: "@maivn.marketing",
     avatar:
       "https://i.pinimg.com/736x/12/c6/ec/12c6ecefdd47b6d60715fdc4abc0f2ff.jpg",
   },
   {
-    name: "Vũ Đức Thịnh",
-    username: "@thinhvd.database",
+    name: "Lê Hoàng Nam",
+    username: "@namlh.database",
     avatar:
       "https://i.pinimg.com/736x/5b/07/21/5b07212049a3029d4b5924a58e9aac8b.jpg",
   },
   {
-    name: "Bùi Thanh Hương",
-    username: "@huongbt.manager",
+    name: "Bùi Hồng Ngọc",
+    username: "@ngocbh.manager",
     avatar:
       "https://i.pinimg.com/736x/b8/f6/6f/b8f66f6bb48f3c14019618f1a7776e7e.jpg",
   },
   {
-    name: "Hoàng Thanh Sơn",
-    username: "@sonht.webdev",
+    name: "Hoàng Gia Bảo",
+    username: "@baohg.webdev",
     avatar:
       "https://i.pinimg.com/736x/9c/83/83/9c8383007351d83d96442761ffec4eee.jpg",
   },
   {
-    name: "Lý Gia Bảo",
-    username: "@baolg.finance",
+    name: "Lý Minh Quân",
+    username: "@quanlm.finance",
     avatar:
       "https://i.pinimg.com/736x/46/2b/ae/462bae9176c26e916b20de2434175934.jpg",
   },
   {
-    name: "Đỗ Minh Khoa",
-    username: "@khoadm.design",
+    name: "Đỗ Nhật Long",
+    username: "@longdn.design",
     avatar:
       "https://i.pinimg.com/736x/af/99/ec/af99ecc288152fba0433df0e79db554a.jpg",
   },
   {
-    name: "Nguyễn Bảo Anh",
-    username: "@anhnba.cloud",
+    name: "Nguyễn Thảo Vy",
+    username: "@vynt.cloud",
     avatar:
       "https://i.pinimg.com/736x/98/a5/a7/98a5a76caf8dbb66de5316e93a7de2b8.jpg",
   },
@@ -102,7 +100,6 @@ function ProfileMainBoard({}: TProps) {
       screenfull.toggle();
     }
   };
-  const router = useRouter();
   return (
     <div className="absolute right-4 top-4">
       <div className="flex flex-row gap-6">
@@ -111,10 +108,9 @@ function ProfileMainBoard({}: TProps) {
             <button
               className="flex flex-row-reverse items-center gap-2 rounded-md px-2 py-1 text-sm outline-none transition hover:bg-secondary"
               onClick={() => {
-                router.push("/video-call/any");
+                // router.push("/video-call/any");
               }}
             >
-              <p>Gọi video</p>
               <Image
                 src={VideoCallIcon}
                 alt="icons"
@@ -130,7 +126,7 @@ function ProfileMainBoard({}: TProps) {
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <button className="flex flex-row items-center gap-2 rounded-md px-4 py-1 text-sm outline-none transition hover:bg-secondary">
-                  Phòng của Vũ
+                  Phòng của Ái
                 </button>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content className="z-10 mr-6 mt-3 flex max-h-[300px] w-fit max-w-[400px] animate-fade-down flex-col gap-2 rounded-lg border-2 border-black bg-white p-4 shadow-md animate-duration-200 hover:shadow-3d-hover">
@@ -142,7 +138,7 @@ function ProfileMainBoard({}: TProps) {
                   <DropdownMenu.Item className="flex flex-col gap-3 rounded-md p-2 transition focus-visible:outline-none">
                     {users.map((item, index) => (
                       <div className="flex flex-row gap-2" key={index}>
-                        <div className="w-[40px] h-[40px]">
+                        <div className="h-[40px] w-[40px]">
                           <Image
                             src={item?.avatar}
                             alt="avatar"
@@ -236,8 +232,8 @@ function ProfileMainBoard({}: TProps) {
                       <div className="flex flex-row items-center gap-2 border-b-2 pb-2">
                         <span>🔔</span>
                         <p className="text-start text-sm">
-                          Người dùng `&quot;`Lê Đức Anh Phương`&quot;` đã tham
-                          gia phòng học
+                          Người dùng `&quot;`Thanh Thủy`&quot;` đã tham gia
+                          phòng học
                         </p>
                       </div>
                       <div className="flex flex-row items-center gap-2 border-b-2 pb-2">
@@ -264,40 +260,6 @@ function ProfileMainBoard({}: TProps) {
                 unoptimized
               />
             </button>
-          </div>
-          <div className="cursor-pointer pr-4">
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger asChild>
-                <Image
-                  src={
-                    "https://i.ibb.co/qBNhB8Q/z4906224013507-d649511249cf5ef7e835baf8a498b877.jpg"
-                  }
-                  alt="avatar"
-                  height={200}
-                  width={200}
-                  className="h-[30px] w-[30px] rounded-[50%] object-cover"
-                  unoptimized
-                />
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content className="z-10 mr-4 mt-3 flex w-fit animate-fade-down flex-col gap-2 rounded-lg border-2 border-black bg-white p-4 shadow-md animate-duration-200 hover:shadow-3d-hover">
-                <DropdownMenu.Label className="font-bold">
-                  Tài khoản
-                </DropdownMenu.Label>
-                <DropdownMenu.Separator className="border-b-2" />
-                <DropdownMenu.Group className="flex flex-col gap-2">
-                  <DropdownMenu.Item className="rounded-md p-2 transition hover:bg-secondary focus-visible:outline-none">
-                    Trang cá nhân
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item className="rounded-md p-2 transition hover:bg-secondary focus-visible:outline-none">
-                    Cài đặt tài khoản
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Separator className="border-b-2" />
-                  <DropdownMenu.Item className="rounded-md p-2 transition hover:bg-secondary focus-visible:outline-none">
-                    Thoát phòng
-                  </DropdownMenu.Item>
-                </DropdownMenu.Group>
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
           </div>
         </div>
       </div>

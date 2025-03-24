@@ -8,17 +8,17 @@ export interface IThemes {
 
 export const themes: IThemes[] = [
   {
-    id: "d6f9a6e2-4ed4-4a8e-9e6f-1b5f716d81e1", // Example UUID
-    name: "Jappanese room",
+    id: "d6f9a6e2-4ed4-4a8e-9e6f-1b5f716d81e1",
+    name: "Virus room",
     imageBackground:
-      "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718549075/Fuse_Theme_Background_Image/sxwgcltd68dsxlxvm2pk.png",
+      "https://res.cloudinary.com/ddmvtzdn5/image/upload/v1742820179/su-nghiep-chuong-phao-1742625205361982335510_jveo61.jpg",
     videoBackground:
-      "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718548955/Fuse_Theme_Background/xutsugcgoqjggzdgpgna.mp4",
+      "https://res.cloudinary.com/ddmvtzdn5/video/upload/v1742820936/Untitled_video_-_Made_with_Clipchamp_1_s5fwob.mp4",
     audio:
-      "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718547654/Music/itrfsbytdmmad4m3azvk.mp4",
+      "https://res.cloudinary.com/ddmvtzdn5/video/upload/v1742821883/htptrtnfix_xehoev.mp3",
   },
   {
-    id: "a7c0a8d2-3b1e-4d5c-a3b2-8d9b8c2d9b8d", // Example UUID
+    id: "a7c0a8d2-3b1e-4d5c-a3b2-8d9b8c2d9b8d",
     name: "Castle langscape",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718549484/Fuse_Theme_Background_Image/lj815p7a9bfcsmzu9iga.png",
@@ -28,7 +28,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718549295/Music/pkl4tarngqv6r18crrs6.ogg",
   },
   {
-    id: "e3a2b3c1-5c4b-4a6c-8b3a-9c2d8e1f9b7a", // Example UUID
+    id: "e3a2b3c1-5c4b-4a6c-8b3a-9c2d8e1f9b7a",
     name: "Raining Town",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718549658/Fuse_Theme_Background_Image/ojeoesrbu0a0hqrtoowr.png",
@@ -38,7 +38,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718552685/Music/rlwfeiycuoi0arxoydku.ogg",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6d", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6d",
     name: "Lofi Coffee",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718552867/Fuse_Theme_Background_Image/bct1bw2hrggzz6uba6jb.png",
@@ -49,7 +49,7 @@ export const themes: IThemes[] = [
   },
 
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6f", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6f",
     name: "Tree Nature",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718903017/Fuse_Theme_Background_Image/re6lir05qwk2uplpym0h.png",
@@ -59,7 +59,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718906441/Music/hrnemnp5b0buqv1mlq0d.ogg",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6k", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6k",
     name: "Alone Tree",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718903174/Fuse_Theme_Background_Image/prhf79movnbaezic9mlf.png",
@@ -69,7 +69,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718906342/Music/lkhldvs7atj6yi6lujfw.ogg",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6g", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6g",
     name: "Classic Gaming",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718903283/Fuse_Theme_Background_Image/napiceih82cmpjylyktf.png",
@@ -79,7 +79,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718906551/Music/farezcexo7ugyb3jsviu.mp4",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6h", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6h",
     name: "Norse Church",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718903533/Fuse_Theme_Background_Image/biiklhjmjqwsuwjh3nyk.png",
@@ -89,7 +89,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718906289/Music/rmy6ioktvj8cdhs3mlxt.ogg",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6j", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6j",
     name: "Stone Bridge",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718903759/Fuse_Theme_Background_Image/a63jswo7wsx5onpq4ysp.png",
@@ -99,7 +99,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718906121/Music/gs0fz4jejbprfmzqxo6h.mp4",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6b", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6b",
     name: "Aunora",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718903964/Fuse_Theme_Background_Image/wufnln6ffzier6446fhy.png",
@@ -109,7 +109,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718906200/Music/plictc17mssj4qqefeer.ogg",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6n", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6n",
     name: "Blue Night",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718904405/Fuse_Theme_Background_Image/liizzljn1fohrr9mazlv.png",
@@ -119,7 +119,7 @@ export const themes: IThemes[] = [
       "https://res.cloudinary.com/dy1uuo6ql/video/upload/v1718905967/Music/dbazptf8zsug9cygzruc.ogg",
   },
   {
-    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6m", // Example UUID
+    id: "b5c3d7e2-2c6f-4b7e-9f4c-7d5e8c1a9b6m",
     name: "WatterFall",
     imageBackground:
       "https://res.cloudinary.com/dy1uuo6ql/image/upload/v1718905007/Fuse_Theme_Background_Image/ehadv9idbejlsytvzgnb.png",
@@ -140,14 +140,14 @@ export type TMessage = {
 export const fakeMessageData: TMessage[] = [
   {
     avatar: "https://i.ibb.co/qNspdpx/Club-leader-photo.webp",
-    from: "Trần Văn Bảo Thắng",
+    from: "Phạm Minh Quân",
     message: "Hello world",
     role: "Joinner",
     time: "08:20:00",
   },
   {
     avatar: "https://i.ibb.co/RgHWmXb/MG-5515-op2-1.png",
-    from: "Nguyễn Văn Duy Khang",
+    from: "Trần Hữu Nam",
     message: "Good morning everyone!",
     role: "Member",
     time: "08:25:00",
@@ -155,7 +155,7 @@ export const fakeMessageData: TMessage[] = [
   {
     avatar:
       "https://i.ibb.co/TgXZgwv/445356269-973328174802658-3860307921523704298-n.jpg",
-    from: "Lê Đức Anh Phương",
+    from: "Lê Hồng Phúc",
     message: "Did you finish the project?",
     role: "Member",
     time: "08:30:00",
@@ -163,21 +163,21 @@ export const fakeMessageData: TMessage[] = [
   {
     avatar:
       "https://i.ibb.co/TgXZgwv/445356269-973328174802658-3860307921523704298-n.jpg",
-    from: "Nguyễn Văn Duy Khang",
+    from: "Trần Hữu Nam",
     message: "Yes, I sent it to the client.",
     role: "Manager",
     time: "08:35:00",
   },
   {
     avatar: "https://i.ibb.co/qNspdpx/Club-leader-photo.webp",
-    from: "Trần Văn Bảo Thắng",
+    from: "Phạm Minh Quân",
     message: "Great job!",
     role: "Joinner",
     time: "08:40:00",
   },
   {
     avatar: "/avatar_image/Khang_avatar.svg",
-    from: "Nguyễn Văn Duy Khang",
+    from: "Trần Hữu Nam",
     message: "Let's discuss the new task in the meeting.",
     role: "Member",
     time: "08:45:00",
@@ -185,28 +185,28 @@ export const fakeMessageData: TMessage[] = [
   {
     avatar:
       "https://i.ibb.co/TgXZgwv/445356269-973328174802658-3860307921523704298-n.jpg",
-    from: "Lê Đức Anh Phương",
+    from: "Lê Hồng Phúc",
     message: "Sure, I will prepare the slides.",
     role: "Member",
     time: "08:50:00",
   },
   {
     avatar: "https://i.ibb.co/qNspdpx/Club-leader-photo.webp",
-    from: "Trần Văn Bảo Thắng",
+    from: "Phạm Minh Quân",
     message: "Please make sure to include the latest updates.",
     role: "Manager",
     time: "08:55:00",
   },
   {
     avatar: "https://i.ibb.co/qNspdpx/Club-leader-photo.webp",
-    from: "Trần Văn Bảo Thắng",
+    from: "Phạm Minh Quân",
     message: "When is the meeting?",
     role: "Joinner",
     time: "09:00:00",
   },
   {
     avatar: "https://i.ibb.co/RgHWmXb/MG-5515-op2-1.png",
-    from: "Nguyễn Văn Duy Khang",
+    from: "Trần Hữu Nam",
     message: "It's at 10 AM in the main conference room.",
     role: "Member",
     time: "09:05:00",
@@ -217,19 +217,3 @@ export type TBasicInfoInRoom = {
   avatar: string;
   name: string;
 };
-
-export const fakeDataBasicInfoInormation: TBasicInfoInRoom[] = [
-  {
-    avatar: "https://i.ibb.co/qNspdpx/Club-leader-photo.webp",
-    name: "Trần Văn Bảo Thắng",
-  },
-  {
-    avatar:
-      "https://i.ibb.co/TgXZgwv/445356269-973328174802658-3860307921523704298-n.jpg",
-    name: "Lê Đức Anh Phương",
-  },
-  {
-    avatar: "/avatar_image/Khang_avatar.svg",
-    name: "Nguyễn Văn Duy Khang",
-  },
-];

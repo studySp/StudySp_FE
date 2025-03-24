@@ -18,11 +18,11 @@ export default function ProfileCommonCard({
   subTitle,
   des,
   btnContent,
-  redirectUrl = "/"
+  redirectUrl = "/",
 }: ProfileCommonCardProps) {
   const router = useRouter();
   return (
-    <div className="flex flex-col rounded-[12px] border-2 border-black bg-white shadow-3d transition-all hover:shadow-3d-hover">
+    <div className="flex flex-col rounded-[12px] border-2 border-blue-800 bg-white shadow-3d transition-all hover:shadow-3d-hover">
       <div className="flex flex-col gap-2 p-5">
         <div className="flex flex-row items-center gap-5">
           <div>{icon}</div>

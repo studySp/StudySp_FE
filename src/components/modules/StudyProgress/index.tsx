@@ -97,7 +97,7 @@ export default function StudyProgress() {
   return (
     <>
       {isMounted && (
-        <div className="container flex flex-col gap-5 py-[40px]">
+        <div className="container flex flex-col gap-5 py-[120px]">
           <div>
             <h4 className="font-title text-3xl font-bold">Tiến độ học tập</h4>
           </div>
@@ -174,7 +174,6 @@ export default function StudyProgress() {
                   </div>
                 </div>
               </TabsContent>
-              
             </Tabs>
           </div>
         </div>
@@ -217,7 +216,7 @@ export const ProgressCard = ({
 ``;
 export const ProgressBar = ({
   progress,
-  color = "bg-orange-500",
+  color = "bg-blue-500",
   showLabel = true,
 }: {
   progress: number;
@@ -231,7 +230,7 @@ export const ProgressBar = ({
           {progress}% mục tiêu
         </p>
       )}
-      <div className="h-6 w-full overflow-hidden rounded-full bg-gray-200 shadow-md">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-gray-200 shadow-md">
         <div
           className={`h-full ${color} flex items-center justify-center text-sm font-bold text-white transition-all duration-300 ease-in-out`}
           style={{ width: `${progress}%` }}
@@ -253,8 +252,7 @@ export const ProgressBarForTabs = ({
   progress,
   label,
   progressSubLabel,
-  showLabel = true,
-  color = "bg-orange-500",
+  color = "bg-blue-500",
 }: ProgressBarTabsProps) => {
   return (
     <div>
@@ -262,7 +260,7 @@ export const ProgressBarForTabs = ({
         <p className="text-sm text-black text-opacity-70">{label}</p>
         <p className="text-sm text-black text-opacity-70">{progressSubLabel}</p>
       </div>
-      <div className="h-6 w-full overflow-hidden rounded-full bg-gray-200 shadow-md">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-gray-200 shadow-md">
         <div
           className={`h-full ${color} flex items-center justify-center text-sm font-bold text-white transition-all duration-300 ease-in-out`}
           style={{ width: `${progress}%` }}

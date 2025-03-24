@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Span } from "next/dist/trace";
 
 interface SectionProps {
   children: React.ReactNode;

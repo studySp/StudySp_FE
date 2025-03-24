@@ -27,11 +27,6 @@ export const headerUser = [
     label: "Khu học tập",
     id: "study-area",
   },
-  {
-    href: "/exam-area",
-    label: "Khu ôn thi",
-    id: "exam-area",
-  },
 ];
 
 export const dataCommunity = [

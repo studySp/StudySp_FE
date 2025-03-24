@@ -263,7 +263,7 @@ const usersLeaderboardScores: UserInforLeaderBoardProps[] = [
 
 export default function LeaderBoard() {
   return (
-    <div className="container py-[40px]">
+    <div className="container py-[120px]">
       <div>
         <h4 className="font-title text-3xl">Bảng xếp hạng</h4>
       </div>

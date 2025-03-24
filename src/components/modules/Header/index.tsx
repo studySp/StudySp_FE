@@ -13,23 +13,6 @@ const Header = ({
   children: React.ReactNode;
   isHambugerClicked: boolean;
 }) => {
-  const [isHidden, setHidden] = useState(false);
-
-  const handleHiddenHeader = () => {
-    clearTimeout(time);
-    time = setTimeout(() => {
-      setHidden(false);
-    },400);
-    setHidden(true);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleHiddenHeader);
-    return () => {
-      window.removeEventListener("scroll", handleHiddenHeader);
-    };
-  }, [isHidden]);
-
   return (
     <header
       style={{
@@ -39,21 +22,13 @@ const Header = ({
     >
       <AppProgressBar
         height="4px"
-        color="#FF9966"
+        color="#6696ff"
         options={{ showSpinner: false }}
         shallowRouting
       />
       <motion.div
         initial={{
-          rotateX: -90,
-        }}
-        animate={{
-          rotateX: isHidden ? -90 : 0,
-          transition: {
-            duration: isHidden ? 0.5 : 1.5,
-            type: "spring",
-            bounce: isHidden ? 0 : 0.8,
-          },
+          rotateX: 0,
         }}
         className={cn(
           "relative z-50 h-full w-full origin-top bg-background py-4",

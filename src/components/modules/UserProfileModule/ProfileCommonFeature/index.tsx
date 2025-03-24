@@ -40,7 +40,7 @@ const cardsData: ProfileCommonCardProps[] = [
 export default function ProfileCommonFeature() {
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {cardsData.map((item, index) => {
           return (
             <ProfileCommonCard

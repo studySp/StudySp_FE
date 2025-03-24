@@ -31,7 +31,7 @@ const rooms: RecentRoomsItemProps[] = [
 
 export default function RecentRooms() {
   return (
-    <div className="container flex flex-col gap-8 py-[40px]">
+    <div className="container flex flex-col gap-8 py-[120px]">
       <div className="flex flex-row justify-between">
         <h4 className="font-title text-3xl">Phòng tham gia gần đây</h4>
         <Button haveOverlay>
@@ -43,18 +43,24 @@ export default function RecentRooms() {
       </div>
       <div>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {rooms.map((item, index) => {
-            return (
-              <RecentRoomsItem
-                participantsNo={item.participantsNo}
-                subTitle={item.subTitle}
-                timer={item.timer}
-                title={item.title}
-                type={item.type}
-                key={index}
-              />
-            );
-          })}
+          {rooms.length > 0 ? (
+            rooms?.map((item, index) => {
+              return (
+                <RecentRoomsItem
+                  participantsNo={item.participantsNo}
+                  subTitle={item.subTitle}
+                  timer={item.timer}
+                  title={item.title}
+                  type={item.type}
+                  key={index}
+                />
+              );
+            })
+          ) : (
+            <p className="mx-auto font-light">
+              Bạn chưa tham gia phòng học nào
+            </p>
+          )}
         </div>
       </div>
     </div>

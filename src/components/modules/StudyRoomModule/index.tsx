@@ -8,10 +8,10 @@ import RoomThemeControll from "./RoomThemeControll";
 
 function StudyRoomModule() {
   return (
-    <div className="h-full w-full select-none animate-fade">
-      <div className="absolute left-0 right-0 top-0 h-full w-full overflow-hidden p-8">
-        <OutRoom/>
-        <MusicBooking/>
+    <div className="h-full w-full animate-fade select-none">
+      <div className="absolute left-0 right-0 top-0 h-full w-full gap-5 overflow-hidden p-8">
+        <OutRoom />
+        <MusicBooking />
         <ProfileMainBoard />
         <ChatOutSide />
         <RoomThemeControll />
