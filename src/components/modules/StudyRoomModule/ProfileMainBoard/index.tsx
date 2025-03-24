@@ -1,13 +1,6 @@
 "use client";
 import Image from "next/image";
 import screenfull from "screenfull";
-
-import ArrowUpDownIcon from "@public/icons/studyroom/arrow-up-down.svg";
-import BellIcon from "@public/icons/studyroom/bell.svg";
-import VolumnMuteIcon from "@public/icons/studyroom/volumn-mute.svg";
-import VolumnUpIcon from "@public/icons/studyroom/volumn-up.svg";
-import VideoCallIcon from "@public/icons/studyroom/video.svg";
-
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -41,58 +34,20 @@ const users = [
     avatar:
       "https://i.pinimg.com/736x/12/c6/ec/12c6ecefdd47b6d60715fdc4abc0f2ff.jpg",
   },
-  {
-    name: "Lê Hoàng Nam",
-    username: "@namlh.database",
-    avatar:
-      "https://i.pinimg.com/736x/5b/07/21/5b07212049a3029d4b5924a58e9aac8b.jpg",
-  },
-  {
-    name: "Bùi Hồng Ngọc",
-    username: "@ngocbh.manager",
-    avatar:
-      "https://i.pinimg.com/736x/b8/f6/6f/b8f66f6bb48f3c14019618f1a7776e7e.jpg",
-  },
-  {
-    name: "Hoàng Gia Bảo",
-    username: "@baohg.webdev",
-    avatar:
-      "https://i.pinimg.com/736x/9c/83/83/9c8383007351d83d96442761ffec4eee.jpg",
-  },
-  {
-    name: "Lý Minh Quân",
-    username: "@quanlm.finance",
-    avatar:
-      "https://i.pinimg.com/736x/46/2b/ae/462bae9176c26e916b20de2434175934.jpg",
-  },
-  {
-    name: "Đỗ Nhật Long",
-    username: "@longdn.design",
-    avatar:
-      "https://i.pinimg.com/736x/af/99/ec/af99ecc288152fba0433df0e79db554a.jpg",
-  },
-  {
-    name: "Nguyễn Thảo Vy",
-    username: "@vynt.cloud",
-    avatar:
-      "https://i.pinimg.com/736x/98/a5/a7/98a5a76caf8dbb66de5316e93a7de2b8.jpg",
-  },
 ];
 
 function ProfileMainBoard({}: TProps) {
   const path = usePathname();
   const dispatch = useAppDispatch();
-
   const { audio } = useAppSelector((state) => state.studyRoomController);
 
   const [appUrl, setAppUrl] = useState<string>("");
-  useEffect(() => {
-    const fetchAppUrl = () => {
-      const url = window.location.origin;
-      setAppUrl(url + path);
-    };
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportUser, setReportUser] = useState<string | null>(null);
+  const [reportReason, setReportReason] = useState("");
 
-    fetchAppUrl();
+  useEffect(() => {
+    setAppUrl(window.location.origin + path);
   }, [path]);
 
   const toggleFullscreen = () => {
@@ -100,28 +55,30 @@ function ProfileMainBoard({}: TProps) {
       screenfull.toggle();
     }
   };
+  const handleAddFriend = (userName: string) => {
+    alert(`Đã gửi lời mời kết bạn đến ${userName}`);
+  };
+
+  const handleOpenReportModal = (userName: string) => {
+    setReportUser(userName);
+    setReportReason("");
+    setShowReportModal(true);
+  };
+
+  const handleSubmitReport = () => {
+    if (!reportReason.trim()) {
+      alert("Vui lòng nhập lý do báo cáo!");
+      return;
+    }
+
+    alert(`Báo cáo ${reportUser} với lý do: ${reportReason}`);
+    setShowReportModal(false);
+  };
+
   return (
     <div className="absolute right-4 top-4">
       <div className="flex flex-row gap-6">
         <div className="relative z-10 flex flex-row items-center rounded-lg border-2 border-black bg-white/80 p-2 backdrop-blur-sm transition hover:shadow-3d-hover">
-          <div className="px-2">
-            <button
-              className="flex flex-row-reverse items-center gap-2 rounded-md px-2 py-1 text-sm outline-none transition hover:bg-secondary"
-              onClick={() => {
-                // router.push("/video-call/any");
-              }}
-            >
-              <Image
-                src={VideoCallIcon}
-                alt="icons"
-                height={200}
-                width={200}
-                className="h-[20px] w-[20px]"
-                unoptimized
-              />
-            </button>
-          </div>
-          <div className="h-full border-l-2"></div>
           <div className="px-2">
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
@@ -135,12 +92,15 @@ function ProfileMainBoard({}: TProps) {
                 </DropdownMenu.Label>
                 <DropdownMenu.Separator className="border-b-2" />
                 <DropdownMenu.Group className="flex max-h-[600px] w-fit max-w-[400px] flex-col gap-0 overflow-auto">
-                  <DropdownMenu.Item className="flex flex-col gap-3 rounded-md p-2 transition focus-visible:outline-none">
-                    {users.map((item, index) => (
-                      <div className="flex flex-row gap-2" key={index}>
+                  {users.map((item, index) => (
+                    <div
+                      className="flex flex-row items-center justify-between gap-2 p-2"
+                      key={index}
+                    >
+                      <div className="flex flex-row gap-2">
                         <div className="h-[40px] w-[40px]">
                           <Image
-                            src={item?.avatar}
+                            src={item.avatar}
                             alt="avatar"
                             height={40}
                             width={40}
@@ -149,120 +109,63 @@ function ProfileMainBoard({}: TProps) {
                           />
                         </div>
                         <div>
-                          <p className="font-bold">{item?.name}</p>
-                          <p className="text-sm">{item?.username}</p>
+                          <p className="font-bold">{item.name}</p>
+                          <p className="text-sm">{item.username}</p>
                         </div>
                       </div>
-                    ))}
-                  </DropdownMenu.Item>
-                </DropdownMenu.Group>
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
-          </div>
-          <div className="h-full border-l-2"></div>
-          <div className="px-2">
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger asChild>
-                <button className="rounded-md px-4 py-1 text-sm outline-none transition hover:bg-secondary">
-                  Mời bạn bè
-                </button>
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content className="z-10 mr-6 mt-3 flex max-h-[300px] w-fit max-w-[400px] animate-fade-down flex-col gap-2 rounded-lg border-2 border-black bg-white p-4 shadow-md animate-duration-200 hover:shadow-3d-hover">
-                <DropdownMenu.Label className="font-bold">
-                  Mời bạn bè
-                </DropdownMenu.Label>
-                <DropdownMenu.Separator className="border-b-2" />
-                <DropdownMenu.Group className="flex flex-col gap-0">
-                  <DropdownMenu.Item className="rounded-md p-2 transition focus-visible:outline-none">
-                    <label htmlFor="" className="text-sm">
-                      Link phòng
-                    </label>
-                    <input
-                      type="text"
-                      value={appUrl}
-                      disabled
-                      className="w-full text-ellipsis rounded-lg bg-secondary p-2 text-sm italic"
-                    />
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item className="rounded-md p-2 transition focus-visible:outline-none">
-                    <button className="rounded-md bg-secondary px-4 py-2 text-sm outline-none transition hover:bg-[#ebebeb]">
-                      Copy link
-                    </button>
-                  </DropdownMenu.Item>
-                </DropdownMenu.Group>
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
-          </div>
-        </div>
 
-        <div className="relative z-10 flex flex-row items-center gap-4 rounded-lg border-2 border-black bg-white/80 p-2 backdrop-blur-sm hover:shadow-3d-hover">
-          <div className="flex flex-row-reverse gap-2 border-r-2 px-2">
-            <button
-              className="flex h-[30px] w-[30px] items-center justify-center rounded-md outline-none transition hover:bg-secondary"
-              onClick={() => toggleFullscreen()}
-            >
-              <Image
-                src={ArrowUpDownIcon}
-                alt="icon"
-                height={200}
-                width={200}
-                className="h-[20px] w-[20px] cursor-pointer"
-                unoptimized
-              />
-            </button>
-            <button className="flex h-[30px] w-[30px] items-center justify-center rounded-md outline-none transition hover:bg-secondary">
-              <DropdownMenu.Root>
-                <DropdownMenu.Trigger asChild>
-                  <Image
-                    src={BellIcon}
-                    alt="icon"
-                    height={200}
-                    width={200}
-                    className="h-[20px] w-[20px] cursor-pointer"
-                    unoptimized
-                  />
-                </DropdownMenu.Trigger>
-                <DropdownMenu.Content className="z-10 mr-4 mt-4 flex max-h-[300px] w-fit max-w-[400px] animate-fade-down flex-col gap-2 rounded-lg border-2 border-black bg-white p-4 shadow-md animate-duration-200 hover:shadow-3d-hover">
-                  <DropdownMenu.Label className="text-start font-bold">
-                    Thông báo
-                  </DropdownMenu.Label>
-                  <DropdownMenu.Separator className="border-b-2" />
-                  <DropdownMenu.Group className="flex flex-col gap-2">
-                    <DropdownMenu.Item className="flex flex-col gap-2 rounded-md p-2 focus-visible:outline-none">
-                      <div className="flex flex-row items-center gap-2 border-b-2 pb-2">
-                        <span>🔔</span>
-                        <p className="text-start text-sm">
-                          Người dùng `&quot;`Thanh Thủy`&quot;` đã tham gia
-                          phòng học
-                        </p>
+                      <div className="flex flex-row gap-2">
+                        <button
+                          className="rounded-md bg-blue-500 px-2 py-1 text-xs text-white transition hover:bg-blue-600"
+                          onClick={() => handleAddFriend(item.name)}
+                        >
+                          Add Friend
+                        </button>
+                        <button
+                          className="rounded-md bg-red-500 px-2 py-1 text-xs text-white transition hover:bg-red-600"
+                          onClick={() => handleOpenReportModal(item.name)}
+                        >
+                          Report
+                        </button>
                       </div>
-                      <div className="flex flex-row items-center gap-2 border-b-2 pb-2">
-                        <span>✅</span>
-                        <p className="text-start text-sm">
-                          Bạn đã tạo phòng học thành công
-                        </p>
-                      </div>
-                    </DropdownMenu.Item>
-                  </DropdownMenu.Group>
-                </DropdownMenu.Content>
-              </DropdownMenu.Root>
-            </button>
-            <button
-              className="flex h-[30px] w-[30px] items-center justify-center rounded-md outline-none transition hover:bg-secondary"
-              onClick={() => dispatch(actionSetMute(!audio.muted))}
-            >
-              <Image
-                src={audio.muted ? VolumnMuteIcon : VolumnUpIcon}
-                alt="icon"
-                height={200}
-                width={200}
-                className="h-[20px] w-[20px] cursor-pointer"
-                unoptimized
-              />
-            </button>
+                    </div>
+                  ))}
+                </DropdownMenu.Group>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
           </div>
         </div>
       </div>
+
+      {/* Modal Báo Cáo */}
+      {showReportModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-96 rounded-lg bg-white p-6 shadow-lg">
+            <h2 className="text-lg font-bold">Báo cáo {reportUser}</h2>
+            <textarea
+              className="mt-2 w-full rounded-md border border-gray-300 p-2"
+              rows={4}
+              placeholder="Nhập lý do báo cáo..."
+              value={reportReason}
+              onChange={(e) => setReportReason(e.target.value)}
+            ></textarea>
+            <div className="mt-4 flex justify-end">
+              <button
+                className="mr-2 rounded-md bg-gray-300 px-4 py-2"
+                onClick={() => setShowReportModal(false)}
+              >
+                Hủy
+              </button>
+              <button
+                className="rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                onClick={handleSubmitReport}
+              >
+                Gửi báo cáo
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
