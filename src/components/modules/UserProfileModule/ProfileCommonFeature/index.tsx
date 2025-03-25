@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import ProfileCommonCard, { ProfileCommonCardProps } from "./ProfileCommonCard";
-import { Clock, ClockFading, Gift, Trophy } from "lucide-react";
+import { Clock, ClockFading, Gift, Trophy ,Users} from "lucide-react";
 
 const cardsData: ProfileCommonCardProps[] = [
   {
@@ -34,6 +34,14 @@ const cardsData: ProfileCommonCardProps[] = [
     des: "Thu thập huy hiệu, danh hiệu và các phần thưởng khác dựa trên thành tích học tập của bạn.",
     btnContent: "Xem thành tích",
     redirectUrl: "user-profile/reward",
+  },
+  {
+    icon: <Users />,
+    title: "Danh sách bạn bè",
+    subTitle: "Quản lý danh sách bạn bè của bạn",
+    des: "Xem danh sách bạn bè, gửi lời mời kết bạn hoặc xóa bạn bè",
+    btnContent: "Xem danh sách bạn bè",
+    redirectUrl: "user-profile/friends-list",
   },
 ];
 
