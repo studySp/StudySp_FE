@@ -8,6 +8,7 @@ export interface IRecentRoom {
 }
 
 export interface IUser {
+  _id: string;
   userName: string;
   email?: string;
   password?: string;
@@ -22,16 +23,3 @@ export interface IUserProfile {
   nickname?: string;
   gender: "Nam" | "Nữ" | "Khác";
 }
-
-export const userData: IUserProfile = {
-  user: {
-    userName: "Thanh Thuy",
-    email: "",
-    password: "12345678",
-    role: "user",
-  },
-  dayOfBirth: "27/04/2003",
-  bio: "Hi 👋, Thanh Thủy nè. TT đang học kỹ thuật phần mềm trường đại học FPT",
-  nickname: "Gao neee",
-  gender: "Nữ",
-};

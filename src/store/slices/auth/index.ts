@@ -7,6 +7,7 @@ const userInfoFromStorage: IUserProfile = webStorageClient.get(
   constants.USER_INFO,
 ) || {
   user: {
+    _id: "",
     userName: "",
     email: "",
     password: "",
@@ -43,6 +44,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.userInfo = {
         user: {
+          _id: "",
           userName: "",
           email: "",
           password: "",
