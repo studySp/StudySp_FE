@@ -1,16 +1,16 @@
 import React from "react";
 
-import { cardsData } from "@/data/study-area";
+import { cardsData, type ICard } from "@/data/study-area";
 
-import Card, { CardType } from "./card";
+import Card from "./card";
 import Toolbar from "./toolbar";
 
 const Rooms: React.FC = () => {
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       <Toolbar />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {cardsData.map((card: CardType) => (
+        {cardsData.map((card: ICard) => (
           <Card
             key={card.id}
             id={card.id}

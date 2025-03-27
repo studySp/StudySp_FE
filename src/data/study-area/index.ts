@@ -1,6 +1,20 @@
-export const cardsData = [
+export interface ICard {
+  id: string;
+  imgSrc: string;
+  title: string;
+  authorName: string;
+  online: number;
+  isPrivate: boolean;
+  tag: string;
+}
+
+export interface ISubject {
+  subject: string;
+}
+
+export const cardsData: ICard[] = [
   {
-    id: 1,
+    id: "card-101",
     imgSrc:
       "https://wallpapers.com/images/hd/chill-anime-cloudy-sky-eif0wrbsj7tavmd0.jpg",
     title: "Chiến lược đầu tư chứng khoán",
@@ -10,7 +24,7 @@ export const cardsData = [
     tag: "Tài chính",
   },
   {
-    id: 2,
+    id: "card-102",
     imgSrc:
       "https://w0.peakpx.com/wallpaper/393/130/HD-wallpaper-chill-top-chill-background-chill-art.jpg",
     title: "Lập trình Web với ReactJS",
@@ -20,7 +34,7 @@ export const cardsData = [
     tag: "Công nghệ",
   },
   {
-    id: 3,
+    id: "card-103",
     imgSrc:
       "https://static.vecteezy.com/system/resources/previews/024/031/869/non_2x/seascape-sunset-lo-fi-chill-wallpaper-sunrise-ocean-waves-ocean-coast-sun-and-sand-2d-cartoon-landscape-illustration-vaporwave-background-80s-retro-album-art-synthwave-aesthetics-vector.jpg",
     title: "Khai phá dữ liệu với SQL",
@@ -30,7 +44,7 @@ export const cardsData = [
     tag: "Khoa học dữ liệu",
   },
   {
-    id: 4,
+    id: "card-104",
     imgSrc: "https://images7.alphacoders.com/135/1354305.jpeg",
     title: "Quản lý thương hiệu",
     authorName: "Hoàng Thanh Sơn",
@@ -39,7 +53,7 @@ export const cardsData = [
     tag: "Marketing",
   },
   {
-    id: 5,
+    id: "card-105",
     imgSrc: "https://i.redd.it/ngyrp7biz1161.jpg",
     title: "Hệ thống phân tán",
     authorName: "Lê Minh Tuấn",
@@ -48,7 +62,7 @@ export const cardsData = [
     tag: "Công nghệ",
   },
   {
-    id: 6,
+    id: "card-106",
     imgSrc: "https://images.hdqwalls.com/wallpapers/lo-fi-cafe-4k-z8.jpg",
     title: "Quản lý rủi ro trong doanh nghiệp",
     authorName: "Đặng Thị Hương",
@@ -58,7 +72,7 @@ export const cardsData = [
   },
 ];
 
-export const subjects = [
+export const subjects: ISubject[] = [
   { subject: "Tất cả" },
   { subject: "Chứng khoán" },
   { subject: "Đầu tư tài chính" },
