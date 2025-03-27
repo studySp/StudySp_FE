@@ -39,6 +39,8 @@ function UserHeader() {
   }, []);
 
   useEffect(() => {
+    console.log("dfhsdjfgsdf", userInfo);
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
@@ -136,6 +138,7 @@ function UserHeader() {
                     <div className="flex flex-col gap-1">
                       <h5 className="max-w-[200px] truncate text-xl font-medium">
                         {userInfo?.displayName}
+                        Thanh Thủy
                       </h5>
                       <p className="font-normal">{userInfo?.email}</p>
                     </div>

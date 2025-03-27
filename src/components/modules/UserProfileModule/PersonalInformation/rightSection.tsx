@@ -28,7 +28,10 @@ function RightSection() {
     status: "Gao neee",
   });
 
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    setIsMounted(true), [];
+    console.log("AUTH", auth);
+  });
 
   // Xử lý cập nhật thông tin
   const handleUpdateInfo = (field: string, value: string) => {

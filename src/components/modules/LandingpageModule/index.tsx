@@ -1,16 +1,24 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useScroll, useTransform, motion, useInView } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 
 import ButtonArrow from "@public/svgr/ButtonArrow";
 import ArrowSubcribe from "@public/svgr/ArrowSubcribe";
+import { actionLogin, actionSetIsAuth } from "@/store/slices/auth";
 
 import Link from "next/link";
+import { useAppDispatch } from "@/hooks/redux-toolkit";
 
 function LandingpageModule() {
+  const dispatch = useAppDispatch();
+
   const ref = useRef(null);
+  useEffect(() => {
+    dispatch(actionLogin(resFirebase?.user));
+    dispatch(actionSetIsAuth(true));
+  }, []);
   return (
     <section className="w-full" id="home">
       <div className="mx-auto max-w-[1400px] overflow-hidden">
