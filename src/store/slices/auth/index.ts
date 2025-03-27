@@ -1,45 +1,69 @@
-import type { IUser } from "@/data/user";
+import type { IUserProfile } from "@/data/user";
 import { constants } from "@/settings";
 import webStorageClient from "@/utils/webStorageClient";
 import { createSlice } from "@reduxjs/toolkit";
 
-const userInfoFromStorage: IUser = webStorageClient.get(
+const userInfoFromStorage: IUserProfile = webStorageClient.get(
   constants.USER_INFO,
-) || { userName: "", gender: "" };
+) || {
+  user: {
+    userName: "",
+    email: "",
+    password: "",
+    role: "user",
+  },
+  dayOfBirth: "",
+  bio: "",
+  nickname: "",
+  gender: "Khác",
+};
+
 const accessTokenFromStorage = webStorageClient.getToken();
 
-interface AuthSlickInterface {
-  userInfo: IUser;
-  access_token: any;
+interface AuthState {
+  userInfo: IUserProfile;
   isAuth: boolean;
 }
 
-const initialState: AuthSlickInterface = {
+const initialState: AuthState = {
   userInfo: userInfoFromStorage,
-  access_token: accessTokenFromStorage || null,
-  isAuth: !!userInfoFromStorage || false,
+  isAuth: !!accessTokenFromStorage,
 };
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     actionLogin: (state, action) => {
       state.userInfo = action.payload;
+      state.isAuth = true;
       webStorageClient.set(constants.USER_INFO, action.payload);
     },
-    actionSetIsAuth: (state, action) => {
-      state.isAuth = action.payload;
-    },
-    updateProfile: (state, action) => {
+
+    logout: (state) => {
+      state.userInfo = {
+        user: {
+          userName: "",
+          email: "",
+          password: "",
+          avatar: "",
+          role: "user",
+        },
+        dayOfBirth: "",
+        bio: "",
+        nickname: "",
+        gender: "Khác",
+      };
+      state.isAuth = false;
       webStorageClient.removeAll();
-      state.userInfo = action.payload;
-      webStorageClient.set(constants.USER_INFO, action.payload);
+    },
+
+    updateProfile: (state, action) => {
+      state.userInfo = { ...state.userInfo, ...action.payload };
+      webStorageClient.set(constants.USER_INFO, state.userInfo);
     },
   },
 });
 
-export const { actionLogin, actionSetIsAuth, updateProfile } =
-  authSlice.actions;
-
+export const { actionLogin, logout, updateProfile } = authSlice.actions;
 export default authSlice.reducer;

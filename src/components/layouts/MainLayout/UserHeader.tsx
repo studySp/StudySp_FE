@@ -116,7 +116,7 @@ function UserHeader() {
             <DropdownMenu>
               <DropdownMenuTrigger className="outline-none">
                 <Image
-                  src={userInfo?.photoURL || "/images/avatar.webp"}
+                  src={"/images/avatar.webp"}
                   alt=""
                   width={48}
                   height={48}
@@ -127,7 +127,7 @@ function UserHeader() {
                 <DropdownMenuLabel>
                   <div className="flex items-center gap-2">
                     <Image
-                      src={userInfo?.photoURL || "/images/avatar.webp"}
+                      src={"/images/avatar.webp"}
                       alt=""
                       width={54}
                       height={54}
@@ -135,9 +135,9 @@ function UserHeader() {
                     />
                     <div className="flex flex-col gap-1">
                       <h5 className="max-w-[200px] truncate text-xl font-medium">
-                        {userInfo?.userName}
+                        {userInfo?.user?.userName}
                       </h5>
-                      <p className="font-normal">{userInfo?.email}</p>
+                      <p className="font-normal">{userInfo?.user?.email}</p>
                     </div>
                   </div>
                 </DropdownMenuLabel>

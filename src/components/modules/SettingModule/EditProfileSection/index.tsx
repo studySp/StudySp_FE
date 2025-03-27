@@ -6,7 +6,7 @@ import SelectLayout from "@/components/modules/SettingModule/selectLayout";
 import { Button } from "@/components/ui/button";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux-toolkit";
 import { updateProfile } from "@/store/slices/auth";
-import type { IUser } from "@/data/user";
+import type { IUserProfile } from "@/data/user";
 
 const genders = [
   {
@@ -28,14 +28,16 @@ function EditProfileSection() {
     defaultValues: userInfo,
   });
 
-  const onSubmit = (data: IUser) => {
-    console.log("adasdasd", data);
+  const onSubmit = (data: IUserProfile) => {
     dispatch(updateProfile(data));
+    alert("Cập nhật thành công!");
   };
+
   const methods = useForm({
     mode: "onChange",
     defaultValues: userInfo,
   });
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +50,9 @@ function EditProfileSection() {
             type="text"
             label="User Name"
             placeholder="Nhập tên của bạn"
-            {...register("userName", { required: "Tên không được để trống" })}
+            {...register("user.userName", {
+              required: "Tên không được để trống",
+            })}
           />
 
           {control && (
@@ -105,7 +109,7 @@ function EditProfileSection() {
             type="email"
             label="Email"
             placeholder="Nhập địa chỉ email của bạn"
-            {...register("email", {
+            {...register("user.email", {
               required: "Email không được để trống",
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
