@@ -1,15 +1,12 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { useScroll, useTransform, motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 
 import ButtonArrow from "@public/svgr/ButtonArrow";
-import { actionLogin } from "@/store/slices/auth";
 
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux-toolkit";
-import { userData } from "@/data/user";
 
 function LandingpageModule() {
   const ref = useRef(null);

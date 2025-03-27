@@ -11,13 +11,13 @@ export interface IUser {
   userName: string;
   email?: string;
   password?: string;
-  role: "user" | "admin";
+  avatar: string;
+  role?: "user" | "admin";
 }
 
 export interface IUserProfile {
-  userName: string;
+  user: IUser;
   dayOfBirth?: string;
-  email?: string;
   bio?: string;
   nickname?: string;
   gender: "Nam" | "Nữ" | "Khác";
@@ -25,10 +25,15 @@ export interface IUserProfile {
 }
 
 export const userData: IUserProfile = {
-  userName: "Thanh Thủy",
+  user: {
+    userName: "Thanh Thuy",
+    email: "",
+    password: "12345678",
+    avatar: "abc",
+    role: "user",
+  },
   dayOfBirth: "27/04/2003",
   bio: "Hi 👋, Thanh Thủy nè. TT đang học kỹ thuật phần mềm trường đại học FPT",
   nickname: "Gao neee",
   gender: "Nữ",
-  email: "thuynttde170035@fpt.edu.vn",
 };
