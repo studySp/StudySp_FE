@@ -6,6 +6,7 @@ import React from "react";
 
 function DashBoard() {
   const { userInfo } = useAppSelector((state) => state.auth);
+  console.log("userInfo", userInfo);
 
   return (
     <div className="flex flex-col">
@@ -18,8 +19,8 @@ function DashBoard() {
           className="aspect-square rounded-full object-cover"
         />
         <div className="flex flex-col justify-center">
-          <h5 className="font-semibold">{userInfo.user.userName}</h5>
-          <span>{userInfo.nickname}</span>
+          <h5 className="font-semibold">{userInfo?.user?.userName}</h5>
+          <span>{userInfo?.nickname}</span>
         </div>
       </div>
       <div className="flex flex-col gap-2">

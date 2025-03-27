@@ -22,8 +22,8 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAppDispatch } from "@/hooks/redux-toolkit";
 import { actionLogin } from "@/store/slices/auth";
-import { userData } from "@/data/user";
 import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
 
 export function SignInCard() {
   const router = useRouter();
@@ -34,33 +34,37 @@ export function SignInCard() {
   const dispatch = useAppDispatch();
 
   async function onSubmit(data: z.infer<typeof LoginSchema>) {
-    try {
-      console.log("Dữ liệu đăng nhập:", data);
-
-      if (data.email === "test@gmail.com" && data.password === "12345678") {
-        dispatch(actionLogin(userData));
-
+    console.log("Dữ liệu đăng nhập:", data);
+    axios
+      .post(
+        "http://localhost:6060/api/v1/auth/login",
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      )
+      .then((res) => {
+        dispatch(actionLogin(res.data.data));
         toast({
           title: "Đăng nhập thành công",
           description: "Chào mừng bạn quay trở lại!",
         });
-
         router.push("/");
-      } else {
+      })
+      .catch((err: any) => {
         toast({
           title: "Lỗi đăng nhập",
-          description: "Email hoặc mật khẩu không chính xác!",
+          description: err?.message,
           variant: "destructive",
         });
-      }
-    } catch (error) {
-      console.error("Lỗi đăng nhập:", error);
-      toast({
-        title: "Đã xảy ra lỗi",
-        description: "Không thể đăng nhập. Vui lòng thử lại sau!",
-        variant: "destructive",
       });
-    }
+
+    // Giả lập đăng nhập thành công với thông tin tạm thời
   }
 
   return (
