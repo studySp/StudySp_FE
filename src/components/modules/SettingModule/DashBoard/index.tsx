@@ -18,7 +18,7 @@ function DashBoard() {
           className="aspect-square rounded-full object-cover"
         />
         <div className="flex flex-col justify-center">
-          <h5 className="font-semibold">{userInfo.userName}</h5>
+          <h5 className="font-semibold">{userInfo.user.userName}</h5>
           <span>{userInfo.nickname}</span>
         </div>
       </div>

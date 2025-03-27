@@ -152,7 +152,7 @@ function UserHeader() {
                 <DropdownMenuItem
                   onClick={() => router.push("/settings/edit-profile")}
                 >
-                  <div className="flex w-[160px] items-center gap-4">
+                  <div className="flex items-center gap-4">
                     <Settings className="h-4 w-4" />
                     <span>Thay đổi thông tin</span>
                   </div>

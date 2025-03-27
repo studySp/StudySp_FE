@@ -9,12 +9,11 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 import ButtonArrow from "@public/svgr/ButtonArrow";
-import Logo from "@public/svgr/Logo";
 import ChevRight from "@public/svgr/ChevRight";
 import Nav from "@/components/modules/Header/Nav";
 import Image from "next/image";
 import Header from "@/components/modules/Header";
-import { useRouter } from "next-nprogress-bar";
+import { useRouter } from "next/navigation";
 
 function GuestHeader() {
   const [isHambugerClicked, setIsHambugerClicked] = useState(false);
@@ -46,18 +45,23 @@ function GuestHeader() {
       <Header isHambugerClicked={isHambugerClicked}>
         <div className="container z-50 flex justify-between px-5 sm:px-8 md:px-10 lg:px-[60px]">
           {/* <Logo onClick={()=> router.push("/")}/> */}
-          <h1 className="text-4xl font-title" onClick={() => router.push("/")}>StuSp</h1>
+          <h1 className="font-title text-4xl" onClick={() => router.push("/")}>
+            StuSp
+          </h1>
           <Nav headerItems={headerItems} />
           <div className="gap:3 hidden md:flex lg:gap-6">
-            <Link href="/sign-in">
+            <a href="/sign-in">
               <Button variant="link">Đăng nhập</Button>
-            </Link>
-            <Link href="/sign-up">
-              <Button className="flex gap-1" haveOverlay>
-                <span>Đăng ký</span>
-                <ButtonArrow />
-              </Button>
-            </Link>
+            </a>
+
+            <Button
+              className="flex gap-1"
+              haveOverlay
+              onClick={() => router.push("/sign-in")}
+            >
+              <span>Đăng ký</span>
+              <ButtonArrow />
+            </Button>
           </div>
           <div className="flex md:hidden">
             <Button

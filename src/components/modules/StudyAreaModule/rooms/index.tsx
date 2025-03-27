@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
 
-import { cardsData } from "@/data/study-area";
+import { cardsData, type ICard } from "@/data/study-area";
 
-import Card, { CardType } from "./card";
+import Card from "./card";
 import Toolbar from "./toolbar";
 import { useSocket } from "@/context/SocketContext";
 import { keys } from "lodash";

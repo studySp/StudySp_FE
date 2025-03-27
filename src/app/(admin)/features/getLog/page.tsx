@@ -1,9 +1,17 @@
-import LogViewer from "@/components/layouts/LogViewer/LogViewer";
-export default function Home() {
-    return (
-        <div>
-            <h1>Log System</h1>
-            <LogViewer />
-        </div>
-    );
-}
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+const ViewLogRedirect = () => {
+    const router = useRouter();
+
+    useEffect(() => {
+        // Chuyển hướng đến dashboard kèm query params
+        router.push("/dashboard?feature=viewLog");
+    }, []);
+
+    return null; // Không cần render gì cả
+};
+
+export default ViewLogRedirect;

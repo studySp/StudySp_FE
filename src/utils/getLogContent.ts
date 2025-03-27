@@ -3,7 +3,7 @@ import path from "path";
 
 export async function getParsedLog(fileName: string) {
     try {
-        const logDir = path.join(process.cwd(), "src", "resources");
+        const logDir = path.join(process.cwd(), "src", "resources", "logs");
         const filePath = path.join(logDir, fileName);
 
         try {

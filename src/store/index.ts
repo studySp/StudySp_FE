@@ -4,7 +4,7 @@ import auth from "./slices/auth";
 import studyRoomController from "./slices/studyRoomController";
 
 export const store = configureStore({
-  reducer: { auth: auth, studyRoomController: studyRoomController},
+  reducer: { auth: auth, studyRoomController: studyRoomController },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
