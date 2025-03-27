@@ -23,7 +23,7 @@ const ManageUser = () => {
     }, []);
 
     const handleEditClick = (user: User) => {
-        if (user.role === "admin" || user.role === "moderator") return; 
+        if (user.role === "admin" || user.role === "moderator") return;
         setSelectedUser(user);
         setEditedUser(user);
     };
@@ -42,6 +42,21 @@ const ManageUser = () => {
                 setSelectedUser(null);
             })
             .catch(() => setError("Lỗi khi cập nhật người dùng"));
+    };
+
+    const toggleBanUser = (id: string, status: boolean) => {
+        fetch(`http://localhost:6060/api/v1/admin/user/ban/${id}`, { 
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: !status }) 
+        })
+            .then(res => res.json())
+            .then(() => {
+                setUsers(users.map(user =>
+                    user._id === id ? { ...user, status: !user.status } : user
+                ));
+            })
+            .catch(() => setError("Lỗi khi cập nhật trạng thái người dùng"));
     };
 
     return (
@@ -76,6 +91,13 @@ const ManageUser = () => {
                                             onClick={() => handleEditClick(user)}
                                             className="px-3 py-1 rounded bg-blue-500 text-white">
                                             Edit
+                                        </button>
+                                        <button
+                                            onClick={() => toggleBanUser(user._id, user.status)}
+                                            className={`px-3 py-1 rounded ${
+                                                user.status ? "bg-red-500 text-white" : "bg-green-500 text-white"
+                                            }`}>
+                                            {user.status ? "Ban" : "Unban"}
                                         </button>
                                     </>
                                 )}
