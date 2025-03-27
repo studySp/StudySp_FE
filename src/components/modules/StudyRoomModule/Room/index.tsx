@@ -10,6 +10,7 @@ interface RoomProps {
 export const Room = ({ roomId }: RoomProps) => {
   const [myStream, setMyStream] = useState<MediaStream | null>(null);
   const [peers, setPeers] = useState<Record<string, MediaStream>>({});
+  const [globalOptions, setGlobalOptions] = useState<Record<string, any>>({});
   const peersRef = useRef<Record<string, MediaConnection>>({});
   const { socket } = useSocket();
   const myPeerRef = useRef<Peer>();
@@ -62,6 +63,9 @@ export const Room = ({ roomId }: RoomProps) => {
           }
         });
       });
+    socket?.on("updateOptions", (options) => {
+      setGlobalOptions(options);
+    });
 
     socket?.on("user-disconnected", (userId) => {
       if (peersRef.current[userId]) {
@@ -74,15 +78,27 @@ export const Room = ({ roomId }: RoomProps) => {
     });
 
     return () => {
+      myStream?.getTracks().forEach((track) => track.stop());
+
+      if (myPeerRef.current) {
+        console.log("Closing peer");
+        myPeerRef.current.destroy();
+      }
+
+      socket?.off("user-connected");
+      socket?.off("user-disconnected");
+      socket?.off("updateOptions");
+
+      Object.values(peersRef.current).forEach((call) => call.close());
+      peersRef.current = {};
+      console.log(myStream);
+
       if (myStream) {
         myStream.getTracks().forEach((track) => track.stop());
       }
-      socket?.disconnect();
-      if (myPeerRef.current) {
-        myPeerRef.current.destroy();
-      }
+      setPeers({});
     };
-  }, [roomId, socket]);
+  }, [roomId]);
 
   return (
     <div className="flex h-screen flex-col">

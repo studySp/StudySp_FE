@@ -28,6 +28,11 @@ function StudyRoomMainLayout({ children }: { children: React.ReactNode }) {
           .catch((err) => console.error("Failed to play audio:", err));
       }
     }
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, [audio]);
 
   const getRandomTheme = () => {

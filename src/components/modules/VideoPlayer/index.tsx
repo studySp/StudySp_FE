@@ -23,6 +23,20 @@ export const VideoPlayer = ({
     if (videoRef.current && stream) {
       videoRef.current.srcObject = stream;
     }
+    return () => {
+      if (stream) {
+        // Dừng tất cả các track trong stream
+        stream.getTracks().forEach((track) => {
+          track.stop(); // Dừng track
+          stream.removeTrack(track); // Xóa track khỏi stream
+        });
+      }
+
+      // Xóa reference đến stream trong video element
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+    };
   }, [stream]);
 
   const toggleMic = () => {
