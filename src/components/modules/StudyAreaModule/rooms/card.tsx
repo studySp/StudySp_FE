@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 
 import Image from "next/image";
@@ -6,18 +6,9 @@ import Lock from "@public/svgr/Lock";
 
 import Tag, { TagType } from "./tag";
 import { useRouter } from "next-nprogress-bar";
+import type { ICard } from "@/data/study-area";
 
-export interface CardType {
-  id: number;
-  imgSrc: string;
-  title: string;
-  authorName: string;
-  online: number;
-  isPrivate: boolean;
-  tag: TagType["tagName"];
-}
-
-const Card: React.FC<CardType> = ({
+const Card: React.FC<ICard> = ({
   id,
   imgSrc,
   title,
@@ -32,7 +23,7 @@ const Card: React.FC<CardType> = ({
       key={id}
       className="flex flex-col rounded-[20px] border-2 border-black bg-white shadow-3d transition-all hover:shadow-3d-hover"
       onClick={() => {
-        router.push('/study-room/any')
+        router.push(`/study-room/${id}`);
       }}
     >
       <div className="h-52 w-full rounded-t-[20px]">
