@@ -5,19 +5,23 @@ import { useScroll, useTransform, motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 import ButtonArrow from "@public/svgr/ButtonArrow";
-import ArrowSubcribe from "@public/svgr/ArrowSubcribe";
 import { actionLogin, actionSetIsAuth } from "@/store/slices/auth";
 
 import Link from "next/link";
-import { useAppDispatch } from "@/hooks/redux-toolkit";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux-toolkit";
+import { userData } from "@/data/user";
 
 function LandingpageModule() {
+  const { userInfo } = useAppSelector((state) => state.auth);
+
   const dispatch = useAppDispatch();
 
   const ref = useRef(null);
   useEffect(() => {
-    dispatch(actionLogin(resFirebase?.user));
-    dispatch(actionSetIsAuth(true));
+    if (!userInfo) {
+      dispatch(actionLogin(userData));
+      dispatch(actionSetIsAuth(true));
+    }
   }, []);
   return (
     <section className="w-full" id="home">
