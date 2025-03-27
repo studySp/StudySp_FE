@@ -80,9 +80,7 @@ function RightSection() {
       </div>
 
       <div className="mb-3 flex flex-col gap-5 md:flex-row md:gap-32">
-        {/* Cột 1 */}
         <div className="flex flex-col gap-2">
-          {/* Ngày sinh */}
           <div className="flex flex-row items-center gap-2">
             <Cake />
             {editingField === "birthday" ? (
@@ -108,7 +106,6 @@ function RightSection() {
             </button>
           </div>
 
-          {/* Status */}
           <div className="flex flex-row items-center gap-2">
             <Smile />
             {editingField === "status" ? (
@@ -134,7 +131,6 @@ function RightSection() {
             </button>
           </div>
 
-          {/* Email */}
           <div className="flex flex-row items-center gap-2">
             <Mail />
             {isMounted && (
@@ -165,9 +161,7 @@ function RightSection() {
           </div>
         </div>
 
-        {/* Cột 2 */}
         <div className="flex flex-col gap-2">
-          {/* Giới thiệu */}
           <div className="flex flex-row items-center gap-2">
             <UserPen />
             <h3 className="font-semibold">Giới thiệu bản thân:</h3>
