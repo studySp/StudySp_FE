@@ -21,7 +21,7 @@ const Rooms: React.FC = () => {
           return (
             <Card
               key={key}
-              id={index}
+              id={key}
               imgSrc={
                 "https://wallpapers.com/images/hd/chill-anime-cloudy-sky-eif0wrbsj7tavmd0.jpg"
               }
@@ -34,7 +34,7 @@ const Rooms: React.FC = () => {
           );
         })}
 
-        {cardsData.map((card: CardType) => (
+        {cardsData.map((card: ICard) => (
           <Card
             key={card.id}
             id={card.id}
