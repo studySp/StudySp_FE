@@ -2,6 +2,7 @@
 import React from "react";
 import { subjects, cardsData } from "@/data/study-area";
 import { useRouter } from "next-nprogress-bar";
+import axios from "axios";
 const CreateRoomModule = () => {
   const [formData, setFormData] = React.useState({
     title: "",
@@ -13,18 +14,27 @@ const CreateRoomModule = () => {
     password: "",
   });
   const router = useRouter();
-  const handleCreateRoom = (e: any) => {
+  const handleCreateRoom = async (e: any) => {
     e.preventDefault();
-    cardsData.push({
-      id: cardsData.length + 1,
-      imgSrc: "/images/room.jpg",
-      title: formData.title,
-      authorName: "Author",
-      online: 0,
-      isPrivate: formData.isPrivate,
-      tag: formData.subject,
-    });
-    router.push("/study-room/any");
+    await axios
+      .post("http://localhost:6060/api/v1/room", {
+        title: formData.title,
+        author: "67e5668a01584bad62976bfa",
+        tag: formData.subject,
+        isPrivate: formData.isPrivate,
+        allowCamera: formData.camera,
+        allowMic: formData.microphone,
+        hasPassword: formData.hasPassword,
+        password: formData.password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        router.push(`/study-room/${res.data.room._id}`);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        alert("Quá giới hạn tạo phòng, vui lòng thử lại sau!");
+      });
   };
 
   return (
@@ -149,12 +159,13 @@ const CreateRoomModule = () => {
               id="pass"
               className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
               placeholder=" "
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               required
             />
-            <label
-              for="pass"
-              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
-            >
+            <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4">
               Password
             </label>
           </div>

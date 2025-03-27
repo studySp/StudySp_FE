@@ -8,7 +8,8 @@ type TProps = {
 };
 
 function StudyRoom({ params }: TProps) {
-  return <StudyRoomModule />;
+  const { roomId } = params;
+  return <StudyRoomModule roomId={roomId} />;
 }
 
 export default StudyRoom;

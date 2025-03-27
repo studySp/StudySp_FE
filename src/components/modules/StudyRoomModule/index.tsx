@@ -7,7 +7,7 @@ import ProfileMainBoard from "./ProfileMainBoard";
 import { Room } from "./Room";
 import RoomThemeControll from "./RoomThemeControll";
 
-function StudyRoomModule() {
+function StudyRoomModule({ roomId }: { roomId: string }) {
   return (
     <div className="h-full w-full animate-fade select-none">
       <div className="absolute left-0 right-0 top-0 h-full w-full gap-5 overflow-hidden p-8">
@@ -16,7 +16,7 @@ function StudyRoomModule() {
         <ProfileMainBoard />
         <ChatOutSide />
         <RoomThemeControll />
-        <Room roomId="1234" />
+        <Room roomId={roomId} />
       </div>
     </div>
   );

@@ -5,17 +5,31 @@ import {
   useEffect,
   useState,
   ReactNode,
+  useMemo,
 } from "react";
 import { io, Socket } from "socket.io-client";
 import { v4 as uuid } from "uuid";
+import { string } from "zod";
 interface SocketContextType {
   socket: Socket | null;
   isConnected: boolean;
+  roomsOnlines: { [key: string]: IRoomSocket };
 }
-
+interface IRoomSocket {
+  title: string;
+  author: string;
+  isPrivate: boolean;
+  allowCamera: boolean;
+  allowMic: boolean;
+  hasPassword: boolean;
+  password: string;
+  participants: string[];
+  tag: string;
+}
 const SocketContext = createContext<SocketContextType>({
   socket: null,
   isConnected: false,
+  roomsOnlines: {},
 });
 
 export function useSocket(): SocketContextType {
@@ -33,7 +47,9 @@ interface SocketProviderProps {
 export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-
+  const [roomsOnlines, setRoomsOnlines] = useState<{
+    [key: string]: IRoomSocket;
+  }>({});
   useEffect(() => {
     // Kết nối tới server socket (thay đổi URL cho phù hợp)
     const socketInstance = io("http://localhost:6060", {
@@ -43,7 +59,10 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
     });
 
     setSocket(socketInstance);
-
+    socketInstance.on("getRoomOnlineUsers", async (data: any) => {
+      console.log("getRoomOnlineUsers", data);
+      setRoomsOnlines(data);
+    });
     function onConnect() {
       setIsConnected(true);
     }
@@ -66,8 +85,12 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
     };
   }, []);
 
+  const contextValue = useMemo(
+    () => ({ socket, isConnected, roomsOnlines }),
+    [socket, isConnected, roomsOnlines],
+  );
   return (
-    <SocketContext.Provider value={{ socket, isConnected }}>
+    <SocketContext.Provider value={contextValue}>
       {children}
     </SocketContext.Provider>
   );

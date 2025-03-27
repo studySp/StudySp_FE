@@ -1,27 +1,51 @@
 import { useEffect, useRef, useState } from "react";
-
+export interface GlobalOptions {
+  isPrivate: boolean;
+  allowCamera: boolean;
+  allowMic: boolean;
+  hasPassword: boolean;
+  password: string;
+}
 interface VideoPlayerProps {
   stream: MediaStream;
-  isMuted?: boolean;
   showControls?: boolean;
+  globalOptions: GlobalOptions;
   onMicToggle?: (isMuted: boolean) => void;
   onVideoToggle?: (isDisabled: boolean) => void;
 }
 
 export const VideoPlayer = ({
   stream,
-  isMuted = false,
   showControls = true,
+  globalOptions = {
+    isPrivate: false,
+    allowCamera: true,
+    allowMic: true,
+    hasPassword: false,
+    password: "",
+  },
   onMicToggle,
   onVideoToggle,
 }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMicMuted, setIsMicMuted] = useState(isMuted);
-  const [isVideoDisabled, setIsVideoDisabled] = useState(false);
+  const [isMicMuted, setIsMicMuted] = useState(true);
+  const [isVideoDisabled, setIsVideoDisabled] = useState(
+    !globalOptions.allowCamera,
+  );
 
   useEffect(() => {
     if (videoRef.current && stream) {
       videoRef.current.srcObject = stream;
+    }
+    if (isMicMuted) {
+      stream.getAudioTracks().forEach((track) => {
+        track.enabled = false; // Tắt âm thanh
+      });
+    }
+    if (isVideoDisabled) {
+      stream.getVideoTracks().forEach((track) => {
+        track.enabled = false; // Tắt video
+      });
     }
     return () => {
       if (stream) {
@@ -41,6 +65,10 @@ export const VideoPlayer = ({
 
   const toggleMic = () => {
     if (stream) {
+      if (!globalOptions.allowMic) {
+        alert("Microphone is disabled in global options.");
+        return;
+      }
       const newState = !isMicMuted;
       stream.getAudioTracks().forEach((track) => {
         track.enabled = !newState; // Ngược lại vì isMicMuted thể hiện trạng thái mute
@@ -52,6 +80,10 @@ export const VideoPlayer = ({
 
   const toggleVideo = () => {
     if (stream) {
+      if (!globalOptions.allowCamera) {
+        alert("Camera is disabled in global options.");
+        return;
+      }
       const newState = !isVideoDisabled;
       stream.getVideoTracks().forEach((track) => {
         track.enabled = !newState; // Ngược lại vì isVideoDisabled thể hiện trạng thái tắt
