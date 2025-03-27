@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Providers from "./providers";
+import { Toaster } from "@/components/ui/toaster";
 import { SocketProvider } from "@/context/SocketContext";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.className)} suppressHydrationWarning={true}>
         <SocketProvider>
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+
+            <Toaster />
+          </Providers>
         </SocketProvider>
       </body>
     </html>

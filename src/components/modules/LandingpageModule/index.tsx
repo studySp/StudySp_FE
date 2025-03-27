@@ -5,24 +5,15 @@ import { useScroll, useTransform, motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 import ButtonArrow from "@public/svgr/ButtonArrow";
-import { actionLogin, actionSetIsAuth } from "@/store/slices/auth";
+import { actionLogin } from "@/store/slices/auth";
 
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux-toolkit";
 import { userData } from "@/data/user";
 
 function LandingpageModule() {
-  const { userInfo } = useAppSelector((state) => state.auth);
-
-  const dispatch = useAppDispatch();
-
   const ref = useRef(null);
-  useEffect(() => {
-    if (!userInfo) {
-      dispatch(actionLogin(userData));
-      dispatch(actionSetIsAuth(true));
-    }
-  }, []);
+
   return (
     <section className="w-full" id="home">
       <div className="mx-auto max-w-[1400px] overflow-hidden">
