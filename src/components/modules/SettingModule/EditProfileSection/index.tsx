@@ -29,13 +29,15 @@ function EditProfileSection() {
   });
 
   const onSubmit = (data: IUser) => {
-    console.log("adasdasd", data);
     dispatch(updateProfile(data));
+    alert("Cập nhật thành công!");
   };
+
   const methods = useForm({
     mode: "onChange",
     defaultValues: userInfo,
   });
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
