@@ -3,22 +3,8 @@ import { constants } from "@/settings";
 import webStorageClient from "@/utils/webStorageClient";
 import { createSlice } from "@reduxjs/toolkit";
 
-const userInfoFromStorage: IUserProfile = webStorageClient.get(
-  constants.USER_INFO,
-) || {
-  user: {
-    _id: "",
-    userName: "",
-    email: "",
-    password: "",
-    role: "user",
-  },
-  dayOfBirth: "",
-  bio: "",
-  nickname: "",
-  gender: "Khác",
-};
-
+const userInfoFromStorage: IUserProfile =
+  webStorageClient.get(constants.USER_INFO) || undefined;
 const accessTokenFromStorage = webStorageClient.getToken();
 
 interface AuthState {
@@ -42,20 +28,6 @@ const authSlice = createSlice({
     },
 
     logout: (state) => {
-      state.userInfo = {
-        user: {
-          _id: "",
-          userName: "",
-          email: "",
-          password: "",
-          avatar: "",
-          role: "user",
-        },
-        dayOfBirth: "",
-        bio: "",
-        nickname: "",
-        gender: "Khác",
-      };
       state.isAuth = false;
       webStorageClient.removeAll();
     },
