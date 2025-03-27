@@ -49,12 +49,23 @@ export function SignInCard() {
         },
       )
       .then((res) => {
-        dispatch(actionLogin(res.data.data));
+        const userResponse = res.data.data;
+        console.log("dfssdfsdfsdf", userResponse);
+        dispatch(actionLogin(userResponse));
+        if (!userResponse?.user) return;
+
+        const { role } = userResponse.user;
+        const message =
+          role === "user"
+            ? "Chào mừng bạn quay trở lại!"
+            : "Bạn đã đăng nhập với tư cách quản trị viên.";
+
         toast({
           title: "Đăng nhập thành công",
-          description: "Chào mừng bạn quay trở lại!",
+          description: message,
         });
-        router.push("/");
+
+        router.push(role === "user" ? "/" : "/dashboard");
       })
       .catch((err: any) => {
         toast({
