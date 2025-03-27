@@ -116,7 +116,7 @@ function UserHeader() {
             <DropdownMenu>
               <DropdownMenuTrigger className="outline-none">
                 <Image
-                  src={userInfo?.user.avatar || "/images/avatar.webp"}
+                  src={"/images/avatar.webp"}
                   alt=""
                   width={48}
                   height={48}
@@ -127,7 +127,7 @@ function UserHeader() {
                 <DropdownMenuLabel>
                   <div className="flex items-center gap-2">
                     <Image
-                      src={userInfo?.user.avatar || "/images/avatar.webp"}
+                      src={"/images/avatar.webp"}
                       alt=""
                       width={54}
                       height={54}

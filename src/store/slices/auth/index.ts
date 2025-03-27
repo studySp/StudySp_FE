@@ -10,7 +10,6 @@ const userInfoFromStorage: IUserProfile = webStorageClient.get(
     userName: "",
     email: "",
     password: "",
-    avatar: "",
     role: "user",
   },
   dayOfBirth: "",

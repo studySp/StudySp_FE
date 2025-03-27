@@ -11,7 +11,7 @@ export interface IUser {
   userName: string;
   email?: string;
   password?: string;
-  avatar: string;
+  avatar?: string;
   role?: "user" | "admin";
 }
 
@@ -21,7 +21,6 @@ export interface IUserProfile {
   bio?: string;
   nickname?: string;
   gender: "Nam" | "Nữ" | "Khác";
-  photoURL?: string;
 }
 
 export const userData: IUserProfile = {
@@ -29,7 +28,6 @@ export const userData: IUserProfile = {
     userName: "Thanh Thuy",
     email: "",
     password: "12345678",
-    avatar: "abc",
     role: "user",
   },
   dayOfBirth: "27/04/2003",
