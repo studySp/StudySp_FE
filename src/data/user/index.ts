@@ -8,6 +8,7 @@ export interface IRecentRoom {
 }
 
 export interface IUser {
+  id: string;
   userName: string;
   email?: string;
   password?: string;
@@ -25,6 +26,7 @@ export interface IUserProfile {
 
 export const userData: IUserProfile = {
   user: {
+    id: "1",
     userName: "Thanh Thuy",
     email: "",
     password: "12345678",

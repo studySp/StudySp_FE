@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { subjects, cardsData } from "@/data/study-area";
+import { subjects } from "@/data/study-area";
 import { useRouter } from "next-nprogress-bar";
 import axios from "axios";
+import { useAppSelector } from "@/hooks/redux-toolkit";
 const CreateRoomModule = () => {
   const [formData, setFormData] = React.useState({
     title: "",
@@ -13,13 +14,14 @@ const CreateRoomModule = () => {
     hasPassword: false,
     password: "",
   });
+  const { userInfo } = useAppSelector((state) => state.auth);
   const router = useRouter();
   const handleCreateRoom = async (e: any) => {
     e.preventDefault();
     await axios
       .post("http://localhost:6060/api/v1/room", {
         title: formData.title,
-        author: "67e5668a01584bad62976bfa",
+        author: userInfo.user.id,
         tag: formData.subject,
         isPrivate: formData.isPrivate,
         allowCamera: formData.camera,
@@ -53,18 +55,12 @@ const CreateRoomModule = () => {
             }
             required
           />
-          <label
-            for="floating_email"
-            className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
-          >
+          <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4">
             Tiêu đề
           </label>
         </div>
         <div className="group relative z-0 mb-5 w-full">
-          <label
-            for="countries"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
+          <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
             Danh mục
           </label>
           <select

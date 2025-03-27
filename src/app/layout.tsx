@@ -22,13 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className)} suppressHydrationWarning={true}>
-        <SocketProvider>
-          <Providers>
+        <Providers>
+          <SocketProvider>
             {children}
 
             <Toaster />
-          </Providers>
-        </SocketProvider>
+          </SocketProvider>
+        </Providers>
       </body>
     </html>
   );

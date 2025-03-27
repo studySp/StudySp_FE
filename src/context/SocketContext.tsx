@@ -1,4 +1,5 @@
 "use client";
+import { useAppSelector } from "@/hooks/redux-toolkit";
 import {
   createContext,
   useContext,
@@ -8,8 +9,6 @@ import {
   useMemo,
 } from "react";
 import { io, Socket } from "socket.io-client";
-import { v4 as uuid } from "uuid";
-import { string } from "zod";
 interface SocketContextType {
   socket: Socket | null;
   isConnected: boolean;
@@ -47,14 +46,17 @@ interface SocketProviderProps {
 export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const { userInfo } = useAppSelector((state) => state.auth);
   const [roomsOnlines, setRoomsOnlines] = useState<{
     [key: string]: IRoomSocket;
   }>({});
+
   useEffect(() => {
+    if (!userInfo) return;
     // Kết nối tới server socket (thay đổi URL cho phù hợp)
     const socketInstance = io("http://localhost:6060", {
       query: {
-        userId: uuid(),
+        userId: userInfo.user.id,
       },
     });
 
@@ -83,7 +85,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
       socketInstance.off("connect", onConnect);
       socketInstance.off("disconnect", onDisconnect);
     };
-  }, []);
+  }, [userInfo]);
 
   const contextValue = useMemo(
     () => ({ socket, isConnected, roomsOnlines }),

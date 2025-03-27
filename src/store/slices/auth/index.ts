@@ -43,6 +43,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.userInfo = {
         user: {
+          id: "",
           userName: "",
           email: "",
           password: "",

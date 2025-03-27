@@ -3,6 +3,7 @@ import Peer, { MediaConnection } from "peerjs";
 import { GlobalOptions, VideoPlayer } from "../../VideoPlayer";
 import { useSocket } from "@/context/SocketContext";
 import { v4 as uuid } from "uuid";
+import { useAppSelector } from "@/hooks/redux-toolkit";
 interface RoomProps {
   roomId: string;
 }
@@ -21,7 +22,7 @@ export const Room = ({ roomId }: RoomProps) => {
   const { socket } = useSocket();
   const myPeerRef = useRef<Peer>();
   const videoGridRef = useRef<HTMLDivElement>(null);
-
+  const { userInfo } = useAppSelector((state) => state.auth);
   useEffect(() => {
     if (!socket) return;
     if (socket) {
@@ -37,16 +38,11 @@ export const Room = ({ roomId }: RoomProps) => {
           });
 
           myPeerRef.current.on("open", (id) => {
-            socket.emit(
-              "joinRoom",
-              roomId,
-              "67e5668a01584bad62976bfa",
-              (error: any) => {
-                if (error) {
-                  console.error(error);
-                }
-              },
-            );
+            socket.emit("joinRoom", roomId, userInfo.user.id, (error: any) => {
+              if (error) {
+                console.error(error);
+              }
+            });
           });
 
           myPeerRef.current.on("call", (call) => {
