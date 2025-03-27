@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function LeftSection() {
   const { auth } = useSelector((state: RootState) => state);
-  console.log(auth);
+  console.log("auth", auth);
 
   return (
     <div className="flex h-[200px] w-[200px] flex-col gap-4 rounded-full">

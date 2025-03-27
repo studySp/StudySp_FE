@@ -1,41 +1,31 @@
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { forwardRef } from "react";
 
-interface InputLayoutProps {
-    className?: string;
-    label?: string;
-    placeholder?:string;
-    type?:string;
-    backgroundColor?: string;
+interface InputLayoutProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+  label?: string;
+  backgroundColor?: string;
 }
 
-function InputLayout({
-    className,
-    label,
-    placeholder,
-    type,
-    backgroundColor,
-}: InputLayoutProps) {
+const InputLayout = forwardRef<HTMLInputElement, InputLayoutProps>(
+  ({ className, label, backgroundColor, ...rest }, ref) => {
     return (
-        <section
-            className={cn(
-                "",
-                className,
-            )}
-            style={{
-                backgroundColor,
-            }}
-        >
-            <div className="flex flex-col gap-2">
-                {label && (
-                    <h3 className="text-sm font-semibold" dangerouslySetInnerHTML={{ __html: label }}/>
-                )}
-                {placeholder && type && (
-                    <Input type={type} placeholder={placeholder} className="bg-transparent" />
-                )}
-            </div>
-        </section>
+      <section
+        className={cn("", className)}
+        style={{
+          backgroundColor,
+        }}
+      >
+        <div className="flex flex-col gap-2">
+          {label && <h3 className="text-sm font-semibold">{label}</h3>}
+          <Input ref={ref} className="bg-transparent" {...rest} />
+        </div>
+      </section>
     );
-}
+  },
+);
+
+InputLayout.displayName = "InputLayout";
 
 export default InputLayout;

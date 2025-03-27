@@ -117,13 +117,13 @@ export default function StudyProgress() {
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            <Tabs defaultValue="subject">
+            <Tabs defaultValue="weeklystat">
               <TabsList>
-                <TabsTrigger value="subject">Môn học</TabsTrigger>
+                {/* <TabsTrigger value="subject">Môn học</TabsTrigger> */}
                 <TabsTrigger value="weeklystat">Hằng tuần</TabsTrigger>
                 <TabsTrigger value="dailystat">Hằng ngày</TabsTrigger>
               </TabsList>
-              <TabsContent value="subject" className="mt-5">
+              {/* <TabsContent value="subject" className="mt-5">
                 <div className="flex flex-col rounded-[12px] border-2 border-black bg-white p-5 shadow-3d transition-all hover:shadow-3d-hover">
                   <div className="flex flex-col gap-5">
                     <div>
@@ -139,7 +139,7 @@ export default function StudyProgress() {
                     </div>
                   </div>
                 </div>
-              </TabsContent>
+              </TabsContent> */}
               <TabsContent value="weeklystat" className="mt-5">
                 <div className="flex flex-col rounded-[12px] border-2 border-black bg-white p-5 shadow-3d transition-all hover:shadow-3d-hover">
                   <div className="flex flex-col gap-5">
