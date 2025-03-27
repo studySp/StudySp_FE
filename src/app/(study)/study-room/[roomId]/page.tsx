@@ -1,16 +1,14 @@
-import StudyRoomModule from '@/components/modules/StudyRoomModule'
-import React from 'react'
+import StudyRoomModule from "@/components/modules/StudyRoomModule";
+import React from "react";
 
 type TProps = {
-    params: {
-        roomId: string;
-    }
+  params: {
+    roomId: string;
+  };
+};
+
+function StudyRoom({ params }: TProps) {
+  return <StudyRoomModule />;
 }
 
-function StudyRoom({params}:TProps) {
-    return (
-        <StudyRoomModule/>
-    )
-}
-
-export default StudyRoom
+export default StudyRoom;

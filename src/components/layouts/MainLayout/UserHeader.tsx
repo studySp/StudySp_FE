@@ -68,7 +68,7 @@ function UserHeader() {
           <Nav headerItems={headerUser} />
 
           <div className="gap:3 flex w-[116px] items-center gap-4 md:gap-4 lg:w-auto lg:gap-6">
-            <Link href="/sign-up">
+            <Link href="/create-room">
               <Button className="flex gap-1" haveOverlay>
                 <Plus className="h-4 w-4 lg:h-6 lg:w-6" />
                 <span className="hidden lg:block">Tạo phòng</span>

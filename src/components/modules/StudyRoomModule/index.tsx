@@ -4,6 +4,7 @@ import ChatOutSide from "./ChatOutSide";
 import MusicBooking from "./MusicBooking";
 import OutRoom from "./OutRoom";
 import ProfileMainBoard from "./ProfileMainBoard";
+import { Room } from "./Room";
 import RoomThemeControll from "./RoomThemeControll";
 
 function StudyRoomModule() {
@@ -15,6 +16,7 @@ function StudyRoomModule() {
         <ProfileMainBoard />
         <ChatOutSide />
         <RoomThemeControll />
+        <Room roomId="1234" />
       </div>
     </div>
   );
