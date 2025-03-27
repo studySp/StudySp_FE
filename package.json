@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.0",
     "@hookform/resolvers": "^3.5.0",
     "@mediapipe/tasks-vision": "^0.10.14",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -29,6 +30,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@types/chart.js": "^2.9.41",
     "@types/three": "^0.165.0",
+    "antd": "^5.24.5",
     "chart.js": "^4.4.3",
     "chartjs-plugin-datalabels": "^2.2.0",
     "class-variance-authority": "^0.7.0",

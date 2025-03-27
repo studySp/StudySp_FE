@@ -85,16 +85,10 @@ function EditProfileSection() {
       </h3>
       <div className="mb-4 grid grid-cols-4 gap-4">
         <InputLayout
-          className="col-span-2"
-          type="text"
-          label="Họ và tên"
-          placeholder="Nhập họ và tên của bạn"
-        />
-        <InputLayout
           className="col-span-1"
           type="text"
-          label="Tên"
-          placeholder="Nhập tên của bạn"
+          label="Username"
+          placeholder="Nhập UUsername của bạn"
         />
         <SelectLayout
           className="col-span-1"
