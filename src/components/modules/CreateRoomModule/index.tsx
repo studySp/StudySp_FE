@@ -21,7 +21,7 @@ const CreateRoomModule = () => {
   const handleCreateRoom = async (e: any) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:6061/api/v1/room", {
+      .post("http://localhost:6060/api/v1/room", {
         title: formData.title,
         author: userInfo.user._id,
         tag: formData.subject,

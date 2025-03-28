@@ -49,7 +49,7 @@ function ProfileMainBoard({}: TProps) {
     hasPassword: false,
   });
   const fetchRoomInfo = async () => {
-    const res = await axios.get(`http://localhost:6061/api/v1/room/${roomid}`);
+    const res = await axios.get(`http://localhost:6060/api/v1/room/${roomid}`);
     console.log(res.data);
 
     setFormData(res.data);
@@ -57,7 +57,7 @@ function ProfileMainBoard({}: TProps) {
 
   const handlechangeOptions = async (key: string, value: boolean) => {
     setFormData((prev: any) => ({ ...prev, [key]: value }));
-    await axios.put(`http://localhost:6061/api/v1/room/options/${roomid}`, {
+    await axios.put(`http://localhost:6060/api/v1/room/options/${roomid}`, {
       [key]: value,
     });
   };
