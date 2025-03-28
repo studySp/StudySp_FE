@@ -4,11 +4,9 @@ import screenfull from "screenfull";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux-toolkit";
-import { actionSetMute } from "@/store/slices/studyRoomController";
 import { GearIcon } from "@radix-ui/react-icons";
-
-type TProps = {};
+import axios from "axios";
+import { useAppSelector } from "@/hooks/redux-toolkit";
 
 const users = [
   {
@@ -38,23 +36,34 @@ const users = [
 ];
 
 function ProfileMainBoard({}: TProps) {
-  const path = usePathname();
-  const dispatch = useAppDispatch();
-  const { audio } = useAppSelector((state) => state.studyRoomController);
-
-  const [appUrl, setAppUrl] = useState<string>("");
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportUser, setReportUser] = useState<string | null>(null);
   const [reportReason, setReportReason] = useState("");
-  const [formData, setFormData] = useState({
+  const pathname = usePathname();
+  const roomid = pathname.split("/")[2];
+  const { userInfo } = useAppSelector((state) => state.auth);
+  const [formData, setFormData] = useState<any>({
     isPrivate: false,
-    camera: true,
-    microphone: true,
+    allowCamera: true,
+    allowMic: true,
     hasPassword: false,
   });
+  const fetchRoomInfo = async () => {
+    const res = await axios.get(`http://localhost:6061/api/v1/room/${roomid}`);
+    console.log(res.data);
+
+    setFormData(res.data);
+  };
+
+  const handlechangeOptions = async (key: string, value: boolean) => {
+    setFormData((prev: any) => ({ ...prev, [key]: value }));
+    await axios.put(`http://localhost:6061/api/v1/room/options/${roomid}`, {
+      [key]: value,
+    });
+  };
   useEffect(() => {
-    setAppUrl(window.location.origin + path);
-  }, [path]);
+    fetchRoomInfo();
+  }, []);
 
   const toggleFullscreen = () => {
     if (screenfull.isEnabled) {
@@ -84,109 +93,108 @@ function ProfileMainBoard({}: TProps) {
   return (
     <div className="absolute right-4 top-4">
       <div className="flex flex-row gap-6">
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger asChild>
-            <button className="flex h-10 w-10 items-center justify-center rounded-[50%] bg-white p-2 transition hover:bg-gray-100">
-              <GearIcon />
-            </button>
-          </DropdownMenu.Trigger>
+        {formData?.author?._id === userInfo.user._id && (
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <button className="flex h-10 w-10 items-center justify-center rounded-[50%] bg-white p-2 transition hover:bg-gray-100">
+                <GearIcon />
+              </button>
+            </DropdownMenu.Trigger>
 
-          <DropdownMenu.Content className="z-10 mr-6 mt-3 flex max-h-[300px] w-fit max-w-[400px] animate-fade-down flex-col gap-2 rounded-lg border-2 border-black bg-white p-4 shadow-md animate-duration-200 hover:shadow-3d-hover">
-            <DropdownMenu.Label className="font-bold">
-              Cài đặt
-            </DropdownMenu.Label>
-            <DropdownMenu.Separator className="border-b-2" />
-            <DropdownMenu.Group className="flex max-h-[600px] w-fit max-w-[400px] flex-col gap-0 overflow-auto">
-              <div className="group relative z-0 mb-5 w-full">
-                <label className="inline-flex cursor-pointer items-center">
-                  <input
-                    type="checkbox"
-                    value=""
-                    className="peer sr-only"
-                    checked={formData.isPrivate}
-                    onChange={(e) =>
-                      setFormData({ ...formData, isPrivate: e.target.checked })
-                    }
-                  />
-                  <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
-                  <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Chế độ riêng tư
-                  </span>
-                </label>
-              </div>
-              <div className="group relative z-0 mb-5 w-full">
-                <label className="inline-flex cursor-pointer items-center">
-                  <input
-                    type="checkbox"
-                    value=""
-                    className="peer sr-only"
-                    checked={formData.camera}
-                    onChange={(e) =>
-                      setFormData({ ...formData, camera: e.target.checked })
-                    }
-                  />
-                  <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
-                  <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Camera
-                  </span>
-                </label>
-              </div>
-              <div className="group relative z-0 mb-5 w-full">
-                <label className="inline-flex cursor-pointer items-center">
-                  <input
-                    type="checkbox"
-                    value=""
-                    className="peer sr-only"
-                    checked={formData.microphone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, microphone: e.target.checked })
-                    }
-                  />
-
-                  <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
-                  <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Microphone
-                  </span>
-                </label>
-              </div>
-              <div className="group relative z-0 mb-5 w-full">
-                <label className="inline-flex cursor-pointer items-center">
-                  <input
-                    type="checkbox"
-                    value=""
-                    className="peer sr-only"
-                    checked={formData.hasPassword}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        hasPassword: e.target.checked,
-                      })
-                    }
-                  />
-                  <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
-                  <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Password
-                  </span>
-                </label>
-              </div>
-              {formData.hasPassword && (
+            <DropdownMenu.Content className="z-10 mr-6 mt-3 flex max-h-[300px] w-fit max-w-[400px] animate-fade-down flex-col gap-2 rounded-lg border-2 border-black bg-white p-4 shadow-md animate-duration-200 hover:shadow-3d-hover">
+              <DropdownMenu.Label className="font-bold">
+                Cài đặt
+              </DropdownMenu.Label>
+              <DropdownMenu.Separator className="border-b-2" />
+              <DropdownMenu.Group className="flex max-h-[600px] w-fit max-w-[400px] flex-col gap-0 overflow-auto">
                 <div className="group relative z-0 mb-5 w-full">
-                  <input
-                    type="password"
-                    name="pass"
-                    id="pass"
-                    className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
-                    placeholder=" "
-                    required
-                  />
-                  <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4">
-                    Password
+                  <label className="inline-flex cursor-pointer items-center">
+                    <input
+                      type="checkbox"
+                      value=""
+                      className="peer sr-only"
+                      checked={formData.isPrivate}
+                      onChange={(e) =>
+                        handlechangeOptions("isPrivate", e.target.checked)
+                      }
+                    />
+                    <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                      Chế độ riêng tư
+                    </span>
                   </label>
                 </div>
-              )}
-            </DropdownMenu.Group>
-          </DropdownMenu.Content>
-        </DropdownMenu.Root>
+                <div className="group relative z-0 mb-5 w-full">
+                  <label className="inline-flex cursor-pointer items-center">
+                    <input
+                      type="checkbox"
+                      value=""
+                      className="peer sr-only"
+                      checked={formData.allowCamera}
+                      onChange={(e) =>
+                        handlechangeOptions("allowCamera", e.target.checked)
+                      }
+                    />
+                    <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                      Camera
+                    </span>
+                  </label>
+                </div>
+                <div className="group relative z-0 mb-5 w-full">
+                  <label className="inline-flex cursor-pointer items-center">
+                    <input
+                      type="checkbox"
+                      value=""
+                      className="peer sr-only"
+                      checked={formData.allowMic}
+                      onChange={(e) =>
+                        handlechangeOptions("allowMic", e.target.checked)
+                      }
+                    />
+
+                    <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                      Microphone
+                    </span>
+                  </label>
+                </div>
+                <div className="group relative z-0 mb-5 w-full">
+                  <label className="inline-flex cursor-pointer items-center">
+                    <input
+                      type="checkbox"
+                      value=""
+                      className="peer sr-only"
+                      checked={formData.hasPassword}
+                      onChange={(e) =>
+                        handlechangeOptions("hasPassword", e.target.checked)
+                      }
+                    />
+                    <div className="peer relative h-6 w-11 rounded-full bg-blue-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-blue-300 after:bg-blue-600 after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                      Password
+                    </span>
+                  </label>
+                </div>
+                {formData.hasPassword && (
+                  <div className="group relative z-0 mb-5 w-full">
+                    <input
+                      type="password"
+                      name="pass"
+                      id="pass"
+                      className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+                      placeholder=" "
+                      required
+                    />
+                    <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4">
+                      Password
+                    </label>
+                  </div>
+                )}
+              </DropdownMenu.Group>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        )}
         <div className="relative z-10 flex flex-row items-center rounded-lg border-2 border-black bg-white/80 p-2 backdrop-blur-sm transition hover:shadow-3d-hover">
           <div className="px-2">
             <DropdownMenu.Root>

@@ -10,6 +10,7 @@ interface VideoPlayerProps {
   stream: MediaStream;
   showControls?: boolean;
   globalOptions: GlobalOptions;
+  authorName: String;
   onMicToggle?: (isMuted: boolean) => void;
   onVideoToggle?: (isDisabled: boolean) => void;
 }
@@ -17,18 +18,13 @@ interface VideoPlayerProps {
 export const VideoPlayer = ({
   stream,
   showControls = true,
-  globalOptions = {
-    isPrivate: false,
-    allowCamera: true,
-    allowMic: true,
-    hasPassword: false,
-    password: "",
-  },
+  globalOptions,
+  authorName = "Test",
   onMicToggle,
   onVideoToggle,
 }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMicMuted, setIsMicMuted] = useState(true);
+  const [isMicMuted, setIsMicMuted] = useState(!globalOptions.allowMic);
   const [isVideoDisabled, setIsVideoDisabled] = useState(
     !globalOptions.allowCamera,
   );
@@ -37,32 +33,37 @@ export const VideoPlayer = ({
     if (videoRef.current && stream) {
       videoRef.current.srcObject = stream;
     }
-    if (isMicMuted) {
-      stream.getAudioTracks().forEach((track) => {
-        track.enabled = false; // Tắt âm thanh
-      });
-    }
-    if (isVideoDisabled) {
-      stream.getVideoTracks().forEach((track) => {
-        track.enabled = false; // Tắt video
-      });
-    }
     return () => {
-      if (stream) {
-        // Dừng tất cả các track trong stream
-        stream.getTracks().forEach((track) => {
-          track.stop(); // Dừng track
-          stream.removeTrack(track); // Xóa track khỏi stream
-        });
-      }
-
-      // Xóa reference đến stream trong video element
       if (videoRef.current) {
-        videoRef.current.srcObject = null;
+        videoRef.current.srcObject = null; // Giải phóng video stream khi component unmount
       }
     };
   }, [stream]);
 
+  useEffect(() => {
+    if (!globalOptions.allowMic) {
+      setIsMicMuted(true); // Đặt trạng thái mic là tắt
+      stream.getAudioTracks().forEach((track) => {
+        track.enabled = false; // Tắt âm thanh
+      });
+    } else {
+      setIsMicMuted(false); // Đặt trạng thái mic là bật
+      stream.getAudioTracks().forEach((track) => {
+        track.enabled = true; // Bật âm thanh
+      });
+    }
+    if (!globalOptions.allowCamera) {
+      setIsVideoDisabled(true); // Đặt trạng thái video là tắt
+      stream.getVideoTracks().forEach((track) => {
+        track.enabled = false; // Ngược lại vì isVideoDisabled thể hiện trạng thái tắt
+      });
+    } else {
+      setIsVideoDisabled(false); // Đặt trạng thái video là bật
+      stream.getVideoTracks().forEach((track) => {
+        track.enabled = true; // Bật video
+      });
+    }
+  }, [globalOptions.allowMic, globalOptions.allowCamera]);
   const toggleMic = () => {
     if (stream) {
       if (!globalOptions.allowMic) {
@@ -102,7 +103,9 @@ export const VideoPlayer = ({
         playsInline
         className="h-full w-full rounded-lg object-cover"
       />
-
+      <div className="absolute bottom-2 left-2 z-[2] flex items-center gap-2 rounded-full bg-gray-200 px-2 py-1 text-sm font-medium text-gray-900 dark:bg-gray-800 dark:text-white">
+        <span>{authorName}</span>
+      </div>
       {showControls && (
         <div className="absolute bottom-[-10%] right-[30%] z-[1] flex justify-between gap-2">
           <button

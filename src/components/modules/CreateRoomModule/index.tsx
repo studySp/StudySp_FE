@@ -15,13 +15,15 @@ const CreateRoomModule = () => {
     password: "",
   });
   const { userInfo } = useAppSelector((state) => state.auth);
+  console.log(userInfo);
+
   const router = useRouter();
   const handleCreateRoom = async (e: any) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:6060/api/v1/room", {
+      .post("http://localhost:6061/api/v1/room", {
         title: formData.title,
-        author: userInfo.user.id,
+        author: userInfo.user._id,
         tag: formData.subject,
         isPrivate: formData.isPrivate,
         allowCamera: formData.camera,
@@ -34,8 +36,8 @@ const CreateRoomModule = () => {
         router.push(`/study-room/${res.data.room._id}`);
       })
       .catch((err) => {
-        console.log(err.response.data);
-        alert("Quá giới hạn tạo phòng, vui lòng thử lại sau!");
+        console.log(err.response.message);
+        alert(err.response.data.message);
       });
   };
 

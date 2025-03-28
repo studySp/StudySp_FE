@@ -54,9 +54,9 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   useEffect(() => {
     if (!userInfo) return;
     // Kết nối tới server socket (thay đổi URL cho phù hợp)
-    const socketInstance = io("http://localhost:6060", {
+    const socketInstance = io("http://localhost:6061", {
       query: {
-        userId: userInfo.user.id,
+        userId: userInfo.user._id,
       },
     });
 

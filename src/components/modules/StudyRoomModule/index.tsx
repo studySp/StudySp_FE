@@ -16,7 +16,7 @@ function StudyRoomModule({ roomId }: { roomId: string }) {
         <ProfileMainBoard />
         <ChatOutSide />
         <RoomThemeControll />
-        <Room roomId={roomId} />
+        <Room />
       </div>
     </div>
   );
