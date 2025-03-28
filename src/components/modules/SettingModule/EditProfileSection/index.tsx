@@ -55,7 +55,7 @@ function EditProfileSection() {
             })}
           />
 
-          {control && (
+          {/* {control && (
             <SelectLayout
               className="col-span-1"
               label="Giới tính"
@@ -64,7 +64,7 @@ function EditProfileSection() {
               name="gender"
               control={methods.control}
             />
-          )}
+          )} */}
           <Controller
             control={control}
             name="dayOfBirth"
@@ -92,7 +92,7 @@ function EditProfileSection() {
 
               return (
                 <InputLayout
-                  label="Giới tính"
+                  label="Ngày sinh"
                   {...field}
                   type="date"
                   value={formatDateForInput(field.value)}
