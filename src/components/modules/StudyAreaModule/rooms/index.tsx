@@ -30,6 +30,9 @@ const Rooms: React.FC = () => {
               online={room.participants.length}
               isPrivate={room.isPrivate}
               tag={room.tag}
+              subTitle={""}
+              participantsNo={0}
+              type={"JOIN"}
             />
           );
         })}
@@ -44,6 +47,9 @@ const Rooms: React.FC = () => {
             online={card.online}
             isPrivate={card.isPrivate}
             tag={card.tag}
+            subTitle={card.subTitle}
+            participantsNo={card.participantsNo}
+            type={card.type}
           />
         ))}
       </div>

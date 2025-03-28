@@ -1,35 +1,30 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import type { ICard } from "@/data/study-area";
 import { cn } from "@/lib/utils";
+import webStorageClient from "@/utils/webStorageClient";
 import { Clock, Search, Users } from "lucide-react";
 import { useRouter } from "next-nprogress-bar";
-import React from "react";
-
-const rooms: RecentRoomsItemProps[] = [
-  {
-    title: "Web UI/UX Design",
-    subTitle: "Bạn nào muốn học về WEB UI/UX thì vào phòng nhé 😘",
-    timer: "Bạn đã tham gia 30 phút trước",
-    participantsNo: 2,
-    type: "JOIN",
-  },
-  {
-    title: "Tiếng Nhật lớp cô Thủy",
-    subTitle: "Ôn tiếng Nhật lớp chô Thủy nha mn | 日本語 ",
-    timer: "Bạn đã tham gia 2 tiếng trước",
-    participantsNo: 10,
-    type: "JOIN",
-  },
-  {
-    title: "Xem live steam tôi Dev 😤😤",
-    subTitle: "Nay làm tiếp series NextJs với Nest nha mn <3 <3",
-    timer: "Bạn đã tham gia 2 ngày trước",
-    participantsNo: 25,
-    type: "CLOSE",
-  },
-];
+import React, { useEffect, useState } from "react";
 
 export default function RecentRooms() {
+  const [rooms, setRooms] = useState<ICard[]>([]);
+  useEffect(() => {
+    const recentRooms = webStorageClient.get("recentRooms");
+
+    console.log("Dữ liệu từ localStorage:", recentRooms);
+
+    if (Array.isArray(recentRooms)) {
+      setRooms(recentRooms); // Nếu đã là mảng, giữ nguyên
+    } else if (typeof recentRooms === "object" && recentRooms !== null) {
+      setRooms(Object.values(recentRooms)); // Chuyển object thành mảng
+    } else {
+      setRooms([]); // Nếu dữ liệu sai định dạng, đặt thành mảng rỗng
+    }
+
+    console.log("Danh sách phòng gần đây (sau khi xử lý):", rooms);
+  }, []);
+
   return (
     <div className="container flex flex-col gap-8 py-[120px]">
       <div className="flex flex-row justify-between">
@@ -44,15 +39,21 @@ export default function RecentRooms() {
       <div>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {rooms.length > 0 ? (
-            rooms?.map((item, index) => {
+            rooms?.map((item) => {
               return (
                 <RecentRoomsItem
-                  participantsNo={item.participantsNo}
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
                   subTitle={item.subTitle}
                   timer={item.timer}
-                  title={item.title}
+                  participantsNo={item.participantsNo}
                   type={item.type}
-                  key={index}
+                  imgSrc={item.imgSrc}
+                  authorName={item.authorName}
+                  online={item.online}
+                  isPrivate={item.isPrivate}
+                  tag={item.tag}
                 />
               );
             })
@@ -67,23 +68,15 @@ export default function RecentRooms() {
   );
 }
 
-export type RecentRoomsItemProps = {
-  title?: string;
-  subTitle?: string;
-  timer?: string;
-  participantsNo?: number;
-  type?: "JOIN" | "CLOSE";
-};
-
 export function RecentRoomsItem({
+  id,
   title,
   subTitle,
   timer,
   participantsNo,
   type = "JOIN",
-}: RecentRoomsItemProps) {
+}: ICard) {
   const router = useRouter();
-
   return (
     <div className="flex flex-col rounded-[12px] border-2 border-black bg-white shadow-3d transition-all hover:shadow-3d-hover">
       <div className="flex flex-col gap-5 p-5">
@@ -103,8 +96,8 @@ export function RecentRoomsItem({
         </div>
         <div>
           <div className="flex flex-row gap-2">
-            <Clock size={16} />
-            <p>Tham gia lúc: {timer}</p>
+            {/* <Clock size={16} /> */}
+            {/* <p>Tham gia lúc: {timer}</p> */}
           </div>
           <div className="flex flex-row gap-2">
             <Users size={16} />
@@ -118,7 +111,7 @@ export function RecentRoomsItem({
             disabled={type === "CLOSE"}
             onClick={() => {
               setTimeout(() => {
-                router.push("/study-room/any");
+                router.push(`/study-room/${id}`);
               }, 3000);
             }}
           >

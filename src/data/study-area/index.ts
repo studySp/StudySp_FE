@@ -6,6 +6,10 @@ export interface ICard {
   online: number;
   isPrivate: boolean;
   tag: string;
+  subTitle: string;
+  participantsNo: number;
+  type: "JOIN" | "CLOSE";
+  timer?: string;
 }
 
 export interface ISubject {
@@ -22,6 +26,9 @@ export const cardsData: ICard[] = [
     online: 22,
     isPrivate: false,
     tag: "Tài chính",
+    subTitle: "Học cách đầu tư thông minh",
+    participantsNo: 50,
+    type: "JOIN",
   },
   {
     id: "card-102",
@@ -32,6 +39,9 @@ export const cardsData: ICard[] = [
     online: 30,
     isPrivate: false,
     tag: "Công nghệ",
+    subTitle: "Xây dựng ứng dụng web chuyên nghiệp",
+    participantsNo: 100,
+    type: "JOIN",
   },
   {
     id: "card-103",
@@ -42,6 +52,9 @@ export const cardsData: ICard[] = [
     online: 12,
     isPrivate: true,
     tag: "Khoa học dữ liệu",
+    subTitle: "Truy vấn dữ liệu hiệu quả",
+    participantsNo: 40,
+    type: "CLOSE",
   },
   {
     id: "card-104",
@@ -51,6 +64,9 @@ export const cardsData: ICard[] = [
     online: 18,
     isPrivate: false,
     tag: "Marketing",
+    subTitle: "Xây dựng thương hiệu bền vững",
+    participantsNo: 35,
+    type: "JOIN",
   },
   {
     id: "card-105",
@@ -60,6 +76,9 @@ export const cardsData: ICard[] = [
     online: 17,
     isPrivate: true,
     tag: "Công nghệ",
+    subTitle: "Thiết kế hệ thống hiệu quả",
+    participantsNo: 45,
+    type: "CLOSE",
   },
   {
     id: "card-106",
@@ -69,6 +88,9 @@ export const cardsData: ICard[] = [
     online: 25,
     isPrivate: false,
     tag: "Kinh doanh",
+    subTitle: "Giảm thiểu rủi ro và tối đa hóa lợi nhuận",
+    participantsNo: 60,
+    type: "JOIN",
   },
 ];
 
