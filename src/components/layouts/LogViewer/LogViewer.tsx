@@ -10,7 +10,7 @@ const LogViewer = () => {
 
     // Fetch danh sách file log khi component mount
     useEffect(() => {
-        fetch("http://localhost:6060/api/v1/admin/logs")
+        fetch("http://localhost:6061/api/v1/admin/logs")
             .then(res => res.json())
             .then(data => {
                 if (data.files && Array.isArray(data.files)) {
@@ -26,7 +26,7 @@ const LogViewer = () => {
     // Fetch dữ liệu log khi chọn file
     useEffect(() => {
         if (!selectedFile) return;
-        fetch(`http://localhost:6060/api/v1/admin/logs/${selectedFile}`)
+        fetch(`http://localhost:6061/api/v1/admin/logs/${selectedFile}`)
             .then(res => res.json())
             .then(data => {
                 if (data.logs && Array.isArray(data.logs)) {

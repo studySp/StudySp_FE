@@ -32,7 +32,7 @@ const HandleReport = () => {
     }, []);
 
     const updateReportStatus = (id: string) => {
-        fetch(`http://localhost:6060/api/v1/admin/report/${id}`, {
+        fetch(`http://localhost:6061/api/v1/admin/report/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ status: selectedStatus, result: resultText }),

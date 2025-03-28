@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Notification from "@/components/Notification/Notification"; 
 
 interface User {
     _id: string;
@@ -12,15 +13,21 @@ interface User {
 const ManageUser = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [error, setError] = useState("");
+    const [notification, setNotification] = useState<{ message: string; type?: "success" | "error" } | null>(null);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [editedUser, setEditedUser] = useState<Partial<User>>({});
 
     useEffect(() => {
-        fetch("http://localhost:6060/api/v1/admin/userList")
+        fetch("http://localhost:6061/api/v1/admin/userList")
             .then((res) => res.json())
             .then((data) => setUsers(data))
             .catch(() => setError("Lỗi khi tải danh sách người dùng"));
     }, []);
+
+    const showNotification = (message: string, type: "success" | "error") => {
+        setNotification({ message, type });
+        setTimeout(() => setNotification(null), 3000);
+    };
 
     const handleEditClick = (user: User) => {
         if (user.role === "admin" || user.role === "moderator") return;
@@ -31,7 +38,7 @@ const ManageUser = () => {
     const handleUpdateUser = () => {
         if (!selectedUser) return;
 
-        fetch(`http://localhost:6060/api/v1/admin/user/${selectedUser._id}`, {
+        fetch(`http://localhost:6061/api/v1/admin/user/${selectedUser._id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(editedUser),
@@ -40,29 +47,33 @@ const ManageUser = () => {
             .then((updatedUser) => {
                 setUsers(users.map((user) => (user._id === selectedUser._id ? updatedUser : user)));
                 setSelectedUser(null);
+                showNotification("Cập nhật người dùng thành công!", "success");
             })
-            .catch(() => setError("Lỗi khi cập nhật người dùng"));
+            .catch(() => showNotification("Lỗi khi cập nhật người dùng", "error"));
     };
 
     const toggleBanUser = (id: string, status: boolean) => {
-        fetch(`http://localhost:6060/api/v1/admin/user/ban/${id}`, { 
+        fetch(`http://localhost:6061/api/v1/admin/user/ban/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status: !status }) 
+            body: JSON.stringify({ status: !status }),
         })
-            .then(res => res.json())
+            .then((res) => res.json())
             .then(() => {
-                setUsers(users.map(user =>
-                    user._id === id ? { ...user, status: !user.status } : user
-                ));
+                setUsers(users.map((user) => (user._id === id ? { ...user, status: !user.status } : user)));
+                showNotification(status ? "Người dùng đã bị khóa!" : "Người dùng đã được mở khóa!", "success");
             })
-            .catch(() => setError("Lỗi khi cập nhật trạng thái người dùng"));
+            .catch(() => showNotification("Lỗi khi cập nhật trạng thái người dùng", "error"));
     };
 
     return (
         <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-4xl mx-auto">
+            <Notification message={notification?.message || ""} type={notification?.type} />
+
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Quản lý người dùng</h2>
+
             {error && <p className="text-red-600">{error}</p>}
+
             <table className="w-full bg-white shadow-md rounded-lg">
                 <thead>
                     <tr className="bg-gray-200">

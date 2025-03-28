@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Notification from "@/components/Notification/Notification";
 
 interface Room {
     _id: string;
@@ -15,17 +16,18 @@ const ManageRoom = () => {
     const [rooms, setRooms] = useState<Room[]>([]);
     const [error, setError] = useState("");
     const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+    const [notification, setNotification] = useState<{ message: string; type?: "success" | "error" } | null>(null);
     const [updatedRoom, setUpdatedRoom] = useState<Partial<Room>>({});
 
     useEffect(() => {
-        fetch("http://localhost:6060/api/v1/admin/roomList")
+        fetch("http://localhost:6061/api/v1/admin/roomList")
             .then(res => res.json())
             .then(data => setRooms(data))
             .catch(() => setError("Lỗi khi tải danh sách phòng"));
     }, []);
 
     const updateRoom = (id: string, updatedData: Partial<Room>) => {
-        fetch(`http://localhost:6060/api/v1/admin/room/${id}`, {
+        fetch(`http://localhost:6061/api/v1/admin/room/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedData),
@@ -34,6 +36,7 @@ const ManageRoom = () => {
             .then(updatedData => {
                 setRooms(rooms.map(room => (room._id === id ? updatedData : room)));
                 setSelectedRoom(null);
+                setNotification({ message: "Lưu thành công!", type: "success" });
             })
             .catch(() => setError("Lỗi khi cập nhật phòng"));
     };
@@ -191,6 +194,9 @@ const ManageRoom = () => {
                         </div>
                     </div>
                 </div>
+            )}
+            {notification && (
+                <Notification message={notification.message} type={notification.type} />
             )}
         </div>
     );
