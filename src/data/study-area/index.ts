@@ -18,7 +18,7 @@ export interface ISubject {
 
 export const cardsData: ICard[] = [
   {
-    id: "card-101",
+    id: "67e57a0c38ae757d2d5f1722",
     imgSrc:
       "https://wallpapers.com/images/hd/chill-anime-cloudy-sky-eif0wrbsj7tavmd0.jpg",
     title: "Chiến lược đầu tư chứng khoán",
@@ -31,7 +31,7 @@ export const cardsData: ICard[] = [
     type: "JOIN",
   },
   {
-    id: "card-102",
+    id: "67e57a0c38ae757d2d5f1721",
     imgSrc:
       "https://w0.peakpx.com/wallpaper/393/130/HD-wallpaper-chill-top-chill-background-chill-art.jpg",
     title: "Lập trình Web với ReactJS",
@@ -44,7 +44,7 @@ export const cardsData: ICard[] = [
     type: "JOIN",
   },
   {
-    id: "card-103",
+    id: "67e57a0c38ae757d2d5f1720",
     imgSrc:
       "https://static.vecteezy.com/system/resources/previews/024/031/869/non_2x/seascape-sunset-lo-fi-chill-wallpaper-sunrise-ocean-waves-ocean-coast-sun-and-sand-2d-cartoon-landscape-illustration-vaporwave-background-80s-retro-album-art-synthwave-aesthetics-vector.jpg",
     title: "Khai phá dữ liệu với SQL",
@@ -57,7 +57,7 @@ export const cardsData: ICard[] = [
     type: "CLOSE",
   },
   {
-    id: "card-104",
+    id: "67e57a0c38ae757d2d5f171f",
     imgSrc: "https://images7.alphacoders.com/135/1354305.jpeg",
     title: "Quản lý thương hiệu",
     authorName: "Hoàng Thanh Sơn",
@@ -69,7 +69,7 @@ export const cardsData: ICard[] = [
     type: "JOIN",
   },
   {
-    id: "card-105",
+    id: "67e57a0c38ae757d2d5f171e",
     imgSrc: "https://i.redd.it/ngyrp7biz1161.jpg",
     title: "Hệ thống phân tán",
     authorName: "Lê Minh Tuấn",
@@ -81,7 +81,7 @@ export const cardsData: ICard[] = [
     type: "CLOSE",
   },
   {
-    id: "card-106",
+    id: "c65ffb9d9e7c3a2a1b4d7e8f5",
     imgSrc: "https://images.hdqwalls.com/wallpapers/lo-fi-cafe-4k-z8.jpg",
     title: "Quản lý rủi ro trong doanh nghiệp",
     authorName: "Đặng Thị Hương",

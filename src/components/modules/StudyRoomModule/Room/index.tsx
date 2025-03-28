@@ -22,7 +22,7 @@ export const Room = ({}: RoomProps) => {
     password: "",
   });
   const fetchRoomInfo = async () => {
-    const res = await axios.get(`http://localhost:6061/api/v1/room/${roomId}`);
+    const res = await axios.get(`http://localhost:6060/api/v1/room/${roomId}`);
     setGlobalOptions(res.data);
   };
   const peersRef = useRef<Record<string, MediaConnection>>({});
@@ -119,9 +119,7 @@ export const Room = ({}: RoomProps) => {
       setPeers({});
     };
   }, [socket, roomId]);
-  useEffect(() => {
-    
-  }, [myStream]);
+  useEffect(() => {}, [myStream]);
   return (
     <div className="flex h-screen flex-col">
       <div className="flex-grow p-4">
